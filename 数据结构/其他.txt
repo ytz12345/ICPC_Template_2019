@@ -1,0 +1,6 @@
+树状数组套主席树
+可修改堆
+
+DancingLinks
+带修改kdtree
+可持久化treap
