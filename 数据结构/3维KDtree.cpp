@@ -1,3 +1,6 @@
+/*
+ *O(n*n^(1-1/k)),k为维度
+ */
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -77,7 +80,6 @@ inline void query(node *o) {
         if (dr > ans) query(o -> c[1]);
         if (dl > ans) query(o -> c[0]);
     }
-
 }
 
 int main() {

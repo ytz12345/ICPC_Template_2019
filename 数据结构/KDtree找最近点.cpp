@@ -1,5 +1,7 @@
-/*为了维持树的平衡，可以一开始把所有点都读进来build
-然后打flag标记该点是否被激活*/
+/*
+ *为了维持树的平衡，可以一开始把所有点都读进来build
+ *然后打flag标记该点是否被激活
+ */
 #include <bits/stdc++.h>
 
 using namespace std;

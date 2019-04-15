@@ -1,3 +1,4 @@
+/*类似线段树*/
 #include <bits/stdc++.h>
 
 using namespace std;
