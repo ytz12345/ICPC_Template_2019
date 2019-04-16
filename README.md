@@ -1,1 +1,1 @@
-# ACM Template of 2019
+# ICPC Template of 2019
