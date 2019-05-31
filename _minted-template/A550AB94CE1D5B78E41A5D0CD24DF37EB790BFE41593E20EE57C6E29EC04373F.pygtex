@@ -1,0 +1,96 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/*}
+\PYG{c+cm}{海盗分金币朴素模型:}
+\PYG{c+cm}{n个海盗分m个金币，依次做决策，如果不少于半数的人同意则方案通过，否则当前做决策的人会被淘汰(收益视为\PYGZhy{}1)，由下一人做出决策}
+\PYG{c+cm}{如果一个海盗有多种方案均为最大收益，那么他会希望淘汰的人越多越好}
+\PYG{c+cm}{求出第x个做决策的海盗的最大可能受益和最小可能收益}
+\PYG{c+cm}{*/}
+\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}bits/stdc++.h\PYGZgt{}}
+
+\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
+
+\PYG{k}{struct} \PYG{n}{node} \PYG{p}{\PYGZob{}}
+    \PYG{k+kt}{int} \PYG{n}{min\PYGZus{}v}\PYG{p}{,} \PYG{n}{max\PYGZus{}v}\PYG{p}{;}
+    \PYG{n}{node}\PYG{p}{()}\PYG{o}{:}\PYG{n}{min\PYGZus{}v}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{),} \PYG{n}{max\PYGZus{}v}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{)} \PYG{p}{\PYGZob{}\PYGZcb{}}
+    \PYG{n}{node}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{min\PYGZus{}v}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{max\PYGZus{}v}\PYG{p}{)}\PYG{o}{:}\PYG{n}{min\PYGZus{}v}\PYG{p}{(}\PYG{n}{min\PYGZus{}v}\PYG{p}{),} \PYG{n}{max\PYGZus{}v}\PYG{p}{(}\PYG{n}{max\PYGZus{}v}\PYG{p}{)} \PYG{p}{\PYGZob{}\PYGZcb{}}
+\PYG{p}{\PYGZcb{};}
+
+\PYG{n}{node} \PYG{n+nf}{ask}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{n}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{m}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{)} \PYG{p}{\PYGZob{}}\PYG{c+c1}{//n个人分m个金币，第x个做决策的人最少/最多分到多少个金币}
+    \PYG{k+kt}{int} \PYG{n}{y} \PYG{o}{=} \PYG{n}{n} \PYG{o}{+} \PYG{l+m+mi}{1} \PYG{o}{\PYGZhy{}} \PYG{n}{x}\PYG{p}{;}
+    \PYG{k}{if} \PYG{p}{(}\PYG{n}{n} \PYG{o}{\PYGZgt{}=} \PYG{p}{(}\PYG{n}{m} \PYG{o}{+} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{k+kt}{int} \PYG{n}{a} \PYG{o}{=} \PYG{p}{(}\PYG{n}{m} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{*} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{b} \PYG{o}{=} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{c} \PYG{o}{=} \PYG{l+m+mi}{4}\PYG{p}{;}
+        \PYG{c+c1}{//前a个为[0,1]，后b个为[0,0]，将持续c个}
+        \PYG{k}{while} \PYG{p}{(}\PYG{n}{a} \PYG{o}{+} \PYG{n}{b} \PYG{o}{+} \PYG{n}{c} \PYG{o}{\PYGZlt{}=} \PYG{n}{n}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{n}{a} \PYG{o}{+=} \PYG{n}{b}\PYG{p}{;}
+            \PYG{n}{b} \PYG{o}{*=} \PYG{l+m+mi}{2}\PYG{p}{;}
+            \PYG{n}{c} \PYG{o}{*=} \PYG{l+m+mi}{2}\PYG{p}{;}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{y} \PYG{o}{\PYGZlt{}=} \PYG{n}{a}\PYG{p}{)} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{);}
+        \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{y} \PYG{o}{\PYGZlt{}=} \PYG{n}{a} \PYG{o}{+} \PYG{n}{b}\PYG{p}{)} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{);}
+        \PYG{k}{else} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{n} \PYG{o}{==} \PYG{n}{m} \PYG{o}{*} \PYG{l+m+mi}{2} \PYG{o}{+} \PYG{l+m+mi}{3}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{x} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{);}
+        \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{y} \PYG{o}{\PYGZlt{}=} \PYG{n}{m} \PYG{o}{*} \PYG{l+m+mi}{2} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{y} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{2} \PYG{o}{==} \PYG{l+m+mi}{1} \PYG{o}{||} \PYG{n}{x} \PYG{o}{==} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{);}
+        \PYG{k}{else} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{n} \PYG{o}{==} \PYG{n}{m} \PYG{o}{*} \PYG{l+m+mi}{2} \PYG{o}{+} \PYG{l+m+mi}{2}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{y} \PYG{o}{\PYGZlt{}=} \PYG{n}{m} \PYG{o}{*} \PYG{l+m+mi}{2} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{y} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{2} \PYG{o}{==} \PYG{l+m+mi}{1} \PYG{o}{||} \PYG{n}{x} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{);}
+        \PYG{k}{else} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{else} \PYG{k}{if} \PYG{p}{(}\PYG{n}{n} \PYG{o}{==} \PYG{n}{m} \PYG{o}{*} \PYG{l+m+mi}{2} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{y} \PYG{o}{\PYGZlt{}=} \PYG{n}{m} \PYG{o}{*} \PYG{l+m+mi}{2} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{y} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{2} \PYG{o}{==} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{);}
+        \PYG{k}{else} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{else} \PYG{p}{\PYGZob{}}
+        \PYG{k}{if} \PYG{p}{(}\PYG{n}{x} \PYG{o}{\PYGZam{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+            \PYG{k}{if} \PYG{p}{(}\PYG{n}{x} \PYG{o}{!=} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{);}
+            \PYG{k}{else} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{n}{m} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{n} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{,} \PYG{n}{m} \PYG{o}{\PYGZhy{}} \PYG{p}{(}\PYG{n}{n} \PYG{o}{\PYGZhy{}} \PYG{l+m+mi}{1}\PYG{p}{)} \PYG{o}{/} \PYG{l+m+mi}{2}\PYG{p}{);}
+        \PYG{p}{\PYGZcb{}}
+        \PYG{k}{else} \PYG{k}{return} \PYG{n}{node}\PYG{p}{(}\PYG{l+m+mi}{0}\PYG{p}{,} \PYG{l+m+mi}{0}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+    \PYG{n}{ios}\PYG{o}{::}\PYG{n}{sync\PYGZus{}with\PYGZus{}stdio}\PYG{p}{(}\PYG{n+nb}{false}\PYG{p}{);}
+    \PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{,} \PYG{n}{n}\PYG{p}{,} \PYG{n}{m}\PYG{p}{,} \PYG{n}{k}\PYG{p}{;} \PYG{n}{node} \PYG{n}{y}\PYG{p}{;}
+    \PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{n} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{m} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{k}\PYG{p}{;}
+    \PYG{k}{while} \PYG{p}{(}\PYG{n}{k} \PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+        \PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{x}\PYG{p}{;}
+        \PYG{n}{y} \PYG{o}{=} \PYG{n}{ask}\PYG{p}{(}\PYG{n}{n}\PYG{p}{,} \PYG{n}{m}\PYG{p}{,} \PYG{n}{x}\PYG{p}{);}
+        \PYG{n}{printf}\PYG{p}{(}\PYG{l+s}{\PYGZdq{}\PYGZpc{}d \PYGZpc{}d}\PYG{l+s+se}{\PYGZbs{}n}\PYG{l+s}{\PYGZdq{}}\PYG{p}{,} \PYG{n}{y}\PYG{p}{.}\PYG{n}{min\PYGZus{}v}\PYG{p}{,} \PYG{n}{y}\PYG{p}{.}\PYG{n}{max\PYGZus{}v}\PYG{p}{);}
+    \PYG{p}{\PYGZcb{}}
+    \PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+
+\PYG{c+cm}{/*}
+\PYG{c+cm}{m = 5}
+
+\PYG{c+cm}{1  5}
+\PYG{c+cm}{2  0 5}
+\PYG{c+cm}{3  1 0 4}
+\PYG{c+cm}{4  0 1 0 4}
+\PYG{c+cm}{5  1 0 1 0 3}
+\PYG{c+cm}{6  0 1 0 1 0 3}
+\PYG{c+cm}{7  1 0 1 0 1 0 2}
+\PYG{c+cm}{8  0 1 0 1 0 1 0 2}
+\PYG{c+cm}{9  1 0 1 0 1 0 1 0 1}
+\PYG{c+cm}{10 0 1 0 1 0 1 0 1 0 1}
+\PYG{c+cm}{11 1 0 1 0 1 0 1 0 1 0 0}
+\PYG{c+cm}{12 0 \PYGZus{} 0 \PYGZus{} 0 \PYGZus{} 0 \PYGZus{} 0 \PYGZus{} \PYGZus{} 0}
+\PYG{c+cm}{13 0 \PYGZus{} 0 \PYGZus{} 0 \PYGZus{} 0 \PYGZus{} 0 \PYGZus{} \PYGZus{} 0 \PYGZhy{}1}
+\PYG{c+cm}{14 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0}
+\PYG{c+cm}{15 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 \PYGZhy{}1}
+\PYG{c+cm}{16 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 \PYGZhy{}1 \PYGZhy{}1}
+\PYG{c+cm}{17 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1}
+\PYG{c+cm}{18 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0}
+\PYG{c+cm}{19 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0 \PYGZhy{}1 }
+\PYG{c+cm}{20 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0 \PYGZhy{}1 \PYGZhy{}1}
+\PYG{c+cm}{21 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1}
+\PYG{c+cm}{22 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1}
+\PYG{c+cm}{23 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1}
+\PYG{c+cm}{24 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1}
+\PYG{c+cm}{25 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1 \PYGZhy{}1}
+\PYG{c+cm}{26 \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} \PYGZus{} 0 0 0 0 0 0 0 0}
+\PYG{c+cm}{*/}
+\end{Verbatim}

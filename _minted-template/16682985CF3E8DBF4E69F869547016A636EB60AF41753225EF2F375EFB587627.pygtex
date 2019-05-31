@@ -1,0 +1,18 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/*}
+\PYG{c+cm}{无用边定义:对于边(u,v)如果存在从u到v不经过该边的另一条路径，则称该边无用}
+\PYG{c+cm}{时间复杂度:O(n\PYGZca{}3)}
+\PYG{c+cm}{*/}
+\PYG{k+kt}{bool} \PYG{n}{f}\PYG{p}{[}\PYG{n}{N}\PYG{p}{][}\PYG{n}{N}\PYG{p}{];}\PYG{c+c1}{//i是否可达j}
+
+\PYG{n}{vector} \PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{e}\PYG{p}{[}\PYG{n}{N}\PYG{p}{];}
+
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{n}{rep}\PYG{p}{(}\PYG{n}{i}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{n}\PYG{p}{)}
+		\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n+nl}{j} \PYG{p}{:} \PYG{n}{e}\PYG{p}{[}\PYG{n}{i}\PYG{p}{])} \PYG{p}{\PYGZob{}}
+			\PYG{k}{for} \PYG{p}{(}\PYG{n}{k}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{n}\PYG{p}{)}
+				\PYG{k}{if} \PYG{p}{(}\PYG{n}{i} \PYG{o}{!=} \PYG{n}{k} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{j} \PYG{o}{!=} \PYG{n}{k} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{f}\PYG{p}{[}\PYG{n}{i}\PYG{p}{][}\PYG{n}{k}\PYG{p}{]} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{f}\PYG{p}{[}\PYG{n}{k}\PYG{p}{][}\PYG{n}{j}\PYG{p}{])}
+					\PYG{n}{no\PYGZus{}use\PYGZus{}edge}\PYG{p}{;}
+		\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}
