@@ -1,20 +1,9 @@
 /*RT,给定若干包含问号的字符串，修改为有序字符串的情况总数*/
-#include <bits/stdc++.h>
-
-using namespace std;
-
-typedef long long ll;
-
-const int Mod = 1e9 + 7;
-
+/*O(n^3×m*26),n为字符串个数，m为最大长度*/
 int n, m;
-
 char s[60][30];
-
 int len[60];
-
 int dp[2][60][60][30];
-
 int main() {
 	ios::sync_with_stdio(false);
 	cin >> n;
