@@ -2,46 +2,33 @@
 \PYG{c+cm}{/*容易实现的预开内存池treap，每次head清空即可}
 \PYG{c+cm}{如果初始要插入n个1，可改为类似splay的O(n)build写法}
 \PYG{c+cm}{*/}
-\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}bits/stdc++.h\PYGZgt{}}
-
-\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
-
 \PYG{k}{const} \PYG{k+kt}{int} \PYG{n}{poolSize} \PYG{o}{=} \PYG{l+m+mf}{5e5} \PYG{o}{+} \PYG{l+m+mi}{10}\PYG{p}{;}
-
 \PYG{k}{struct} \PYG{n}{node} \PYG{p}{\PYGZob{}}
 	\PYG{n}{node} \PYG{o}{*}\PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{];}
 	\PYG{k+kt}{int} \PYG{n}{v}\PYG{p}{,} \PYG{n}{r}\PYG{p}{,} \PYG{n}{siz}\PYG{p}{;}
 	\PYG{k+kt}{void} \PYG{n+nf}{update}\PYG{p}{();}
 	\PYG{k+kt}{void} \PYG{n+nf}{init}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{);}
 \PYG{p}{\PYGZcb{};}
-
 \PYG{n}{node} \PYG{o}{*}\PYG{n}{null} \PYG{o}{=} \PYG{k}{new} \PYG{n}{node}\PYG{p}{(),} \PYG{o}{*}\PYG{n}{root} \PYG{o}{=} \PYG{n}{null}\PYG{p}{;}
-
 \PYG{k+kt}{void} \PYG{n}{node}\PYG{o}{::}\PYG{n}{update}\PYG{p}{()} \PYG{p}{\PYGZob{}}
 	\PYG{n}{siz} \PYG{o}{=} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{siz} \PYG{o}{+} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{siz} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{void} \PYG{n}{node}\PYG{o}{::}\PYG{n}{init}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{n}{v} \PYG{o}{=} \PYG{n}{x}\PYG{p}{,} \PYG{n}{r} \PYG{o}{=} \PYG{n}{rand}\PYG{p}{(),} \PYG{n}{siz} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}
 	\PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{n}{null}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{n}{node} \PYG{n}{nodesPool}\PYG{p}{[}\PYG{n}{poolSize}\PYG{p}{];}
-
 \PYG{k+kt}{int} \PYG{n}{head}\PYG{p}{;}\PYG{c+c1}{//每次head=0清空}
-
 \PYG{n}{node} \PYG{o}{*}\PYG{n+nf}{newnode}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{n}{node} \PYG{o}{*}\PYG{n}{res} \PYG{o}{=} \PYG{o}{\PYGZam{}}\PYG{n}{nodesPool}\PYG{p}{[}\PYG{n}{head} \PYG{o}{++}\PYG{p}{];}
 	\PYG{n}{res} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{init}\PYG{p}{(}\PYG{n}{x}\PYG{p}{);}
 	\PYG{k}{return} \PYG{n}{res}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{void} \PYG{n+nf}{rot}\PYG{p}{(}\PYG{n}{node} \PYG{o}{*\PYGZam{}}\PYG{n}{o}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{d}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{n}{node} \PYG{o}{*}\PYG{n}{tmp} \PYG{o}{=} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{o}{!}\PYG{n}{d}\PYG{p}{];}
 	\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{o}{!}\PYG{n}{d}\PYG{p}{]} \PYG{o}{=} \PYG{n}{tmp} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{n}{d}\PYG{p}{],} \PYG{n}{tmp} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{n}{d}\PYG{p}{]} \PYG{o}{=} \PYG{n}{o}\PYG{p}{;}
 	\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{update}\PYG{p}{(),} \PYG{n}{tmp} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{update}\PYG{p}{(),} \PYG{n}{o} \PYG{o}{=} \PYG{n}{tmp}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{void} \PYG{n+nf}{insert}\PYG{p}{(}\PYG{n}{node} \PYG{o}{*\PYGZam{}}\PYG{n}{o}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{o} \PYG{o}{==} \PYG{n}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 		\PYG{n}{o} \PYG{o}{=} \PYG{n}{newnode}\PYG{p}{(}\PYG{n}{x}\PYG{p}{);}
@@ -52,7 +39,6 @@
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{n}{d}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{r} \PYG{o}{\PYGZlt{}} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{r}\PYG{p}{)} \PYG{n}{rot}\PYG{p}{(}\PYG{n}{o}\PYG{p}{,} \PYG{o}{!}\PYG{n}{d}\PYG{p}{);}
 	\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{update}\PYG{p}{();}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{void} \PYG{n+nf}{del}\PYG{p}{(}\PYG{n}{node} \PYG{o}{*\PYGZam{}}\PYG{n}{o}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{x} \PYG{o}{==} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{v}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 		\PYG{k}{if} \PYG{p}{(}\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{==} \PYG{n}{null}\PYG{p}{)} \PYG{p}{\PYGZob{}}\PYG{n}{o} \PYG{o}{=} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];} \PYG{k}{return}\PYG{p}{;\PYGZcb{}}
@@ -63,7 +49,6 @@
 	\PYG{k}{else} \PYG{n}{del}\PYG{p}{(}\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{n}{x} \PYG{o}{\PYGZlt{}=} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{v}\PYG{p}{],} \PYG{n}{x}\PYG{p}{);}
 	\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{update}\PYG{p}{();}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{void} \PYG{n+nf}{build}\PYG{p}{(}\PYG{n}{node} \PYG{o}{*\PYGZam{}}\PYG{n}{o}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{l}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{r}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{n}{o} \PYG{o}{=} \PYG{n}{newnode}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{);}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{l} \PYG{o}{==} \PYG{n}{r}\PYG{p}{)} \PYG{k}{return}\PYG{p}{;}

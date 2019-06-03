@@ -1,3 +1,4 @@
+/*区间每个数变为min(a[i],t) + 区间最大 + 区间和 O(nlog)*/
 const int N = (1 << 20) + 5;
 #define lc (o << 1)
 #define rc (lc | 1)

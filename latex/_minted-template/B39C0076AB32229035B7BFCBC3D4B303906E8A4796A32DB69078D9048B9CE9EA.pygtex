@@ -1,25 +1,15 @@
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}bits/stdc++.h\PYGZgt{}}
-
-\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
-
-\PYG{k}{typedef} \PYG{k+kt}{long} \PYG{k+kt}{long} \PYG{n}{ll}\PYG{p}{;}
-
+\PYG{c+cm}{/*区间每个数变为min(a[i],t) + 区间最大 + 区间和 O(nlog)*/}
 \PYG{k}{const} \PYG{k+kt}{int} \PYG{n}{N} \PYG{o}{=} \PYG{p}{(}\PYG{l+m+mi}{1} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+m+mi}{20}\PYG{p}{)} \PYG{o}{+} \PYG{l+m+mi}{5}\PYG{p}{;}
-
 \PYG{c+cp}{\PYGZsh{}define lc (o \PYGZlt{}\PYGZlt{} 1)}
 \PYG{c+cp}{\PYGZsh{}define rc (lc | 1)}
 \PYG{k}{struct} \PYG{n}{node} \PYG{p}{\PYGZob{}}
 	\PYG{k+kt}{int} \PYG{n}{max1}\PYG{p}{,} \PYG{n}{max2}\PYG{p}{,} \PYG{n}{cnt}\PYG{p}{;}
 	\PYG{n}{ll} \PYG{n}{sum}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}\PYG{n}{tr}\PYG{p}{[}\PYG{n}{N} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+m+mi}{1}\PYG{p}{];}
-
 \PYG{k+kt}{int} \PYG{n}{T}\PYG{p}{,} \PYG{n}{n}\PYG{p}{,} \PYG{n}{m}\PYG{p}{;}
-
 \PYG{k+kt}{int} \PYG{n}{op}\PYG{p}{,} \PYG{n}{x}\PYG{p}{,} \PYG{n}{y}\PYG{p}{,} \PYG{n}{t}\PYG{p}{;}
-
 \PYG{k+kt}{int} \PYG{n}{a}\PYG{p}{[}\PYG{n}{N}\PYG{p}{];}
-
 \PYG{k+kt}{void} \PYG{n+nf}{pushup}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{o}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{tr}\PYG{p}{[}\PYG{n}{lc}\PYG{p}{].}\PYG{n}{max1} \PYG{o}{==} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{rc}\PYG{p}{].}\PYG{n}{max1}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 		\PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{max1} \PYG{o}{=} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{lc}\PYG{p}{].}\PYG{n}{max1}\PYG{p}{;}
@@ -38,7 +28,6 @@
 	\PYG{p}{\PYGZcb{}}
 	\PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{sum} \PYG{o}{=} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{lc}\PYG{p}{].}\PYG{n}{sum} \PYG{o}{+} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{rc}\PYG{p}{].}\PYG{n}{sum}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{void} \PYG{n+nf}{pushdown}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{o}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{max1} \PYG{o}{\PYGZlt{}} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{lc}\PYG{p}{].}\PYG{n}{max1}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 		\PYG{n}{tr}\PYG{p}{[}\PYG{n}{lc}\PYG{p}{].}\PYG{n}{sum} \PYG{o}{+=} \PYG{l+m+mi}{1ll} \PYG{o}{*} \PYG{p}{(}\PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{max1} \PYG{o}{\PYGZhy{}} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{lc}\PYG{p}{].}\PYG{n}{max1}\PYG{p}{)} \PYG{o}{*} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{lc}\PYG{p}{].}\PYG{n}{cnt}\PYG{p}{;}
@@ -49,7 +38,6 @@
 		\PYG{n}{tr}\PYG{p}{[}\PYG{n}{rc}\PYG{p}{].}\PYG{n}{max1} \PYG{o}{=} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{max1}\PYG{p}{;}
 	\PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{void} \PYG{n+nf}{build}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{o}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{l}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{r}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{l} \PYG{o}{==} \PYG{n}{r}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 		\PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{max1} \PYG{o}{=} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{sum} \PYG{o}{=} \PYG{n}{a}\PYG{p}{[}\PYG{n}{r}\PYG{p}{];}
@@ -61,7 +49,6 @@
 	\PYG{n}{build}\PYG{p}{(}\PYG{n}{rc}\PYG{p}{,} \PYG{n}{mid} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{r}\PYG{p}{);}
 	\PYG{n}{pushup}\PYG{p}{(}\PYG{n}{o}\PYG{p}{);}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{void} \PYG{n+nf}{update}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{o}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{l}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{r}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{s}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{t}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{v}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{v} \PYG{o}{\PYGZgt{}=} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{max1}\PYG{p}{)} \PYG{k}{return}\PYG{p}{;}
 	\PYG{n}{pushdown}\PYG{p}{(}\PYG{n}{o}\PYG{p}{);}
@@ -77,7 +64,6 @@
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{t} \PYG{o}{\PYGZgt{}}  \PYG{n}{mid}\PYG{p}{)} \PYG{n}{update}\PYG{p}{(}\PYG{n}{rc}\PYG{p}{,} \PYG{n}{mid} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{r}\PYG{p}{,} \PYG{n}{s}\PYG{p}{,} \PYG{n}{t}\PYG{p}{,} \PYG{n}{v}\PYG{p}{);}
 	\PYG{n}{pushup}\PYG{p}{(}\PYG{n}{o}\PYG{p}{);}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{n}{ll} \PYG{n+nf}{ask\PYGZus{}max}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{o}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{l}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{r}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{s}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{t}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{s} \PYG{o}{\PYGZlt{}=} \PYG{n}{l} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{r} \PYG{o}{\PYGZlt{}=} \PYG{n}{t}\PYG{p}{)} \PYG{k}{return} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{max1}\PYG{p}{;}
 	\PYG{n}{pushdown}\PYG{p}{(}\PYG{n}{o}\PYG{p}{);}
@@ -87,7 +73,6 @@
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{t} \PYG{o}{\PYGZgt{}}  \PYG{n}{mid}\PYG{p}{)} \PYG{n}{res} \PYG{o}{=} \PYG{n}{max}\PYG{p}{(}\PYG{n}{res}\PYG{p}{,} \PYG{n}{ask\PYGZus{}max}\PYG{p}{(}\PYG{n}{rc}\PYG{p}{,} \PYG{n}{mid} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{r}\PYG{p}{,} \PYG{n}{s}\PYG{p}{,} \PYG{n}{t}\PYG{p}{));}
 	\PYG{k}{return} \PYG{n}{res}\PYG{p}{;} 
 \PYG{p}{\PYGZcb{}}
-
 \PYG{n}{ll} \PYG{n+nf}{ask\PYGZus{}sum}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{o}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{l}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{r}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{s}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{t}\PYG{p}{)} \PYG{p}{\PYGZob{}}
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{s} \PYG{o}{\PYGZlt{}=} \PYG{n}{l} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{r} \PYG{o}{\PYGZlt{}=} \PYG{n}{t}\PYG{p}{)} \PYG{k}{return} \PYG{n}{tr}\PYG{p}{[}\PYG{n}{o}\PYG{p}{].}\PYG{n}{sum}\PYG{p}{;}
 	\PYG{n}{pushdown}\PYG{p}{(}\PYG{n}{o}\PYG{p}{);}
@@ -97,7 +82,6 @@
 	\PYG{k}{if} \PYG{p}{(}\PYG{n}{t} \PYG{o}{\PYGZgt{}}  \PYG{n}{mid}\PYG{p}{)} \PYG{n}{res} \PYG{o}{+=} \PYG{n}{ask\PYGZus{}sum}\PYG{p}{(}\PYG{n}{rc}\PYG{p}{,} \PYG{n}{mid} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{,} \PYG{n}{r}\PYG{p}{,} \PYG{n}{s}\PYG{p}{,} \PYG{n}{t}\PYG{p}{);}
 	\PYG{k}{return} \PYG{n}{res}\PYG{p}{;} 
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()} \PYG{p}{\PYGZob{}}
 	\PYG{n}{ios}\PYG{o}{::}\PYG{n}{sync\PYGZus{}with\PYGZus{}stdio}\PYG{p}{(}\PYG{n+nb}{false}\PYG{p}{);} 	
 	\PYG{k}{for} \PYG{p}{(}\PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{T}\PYG{p}{;} \PYG{n}{T} \PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{;} \PYG{p}{)} \PYG{p}{\PYGZob{}}

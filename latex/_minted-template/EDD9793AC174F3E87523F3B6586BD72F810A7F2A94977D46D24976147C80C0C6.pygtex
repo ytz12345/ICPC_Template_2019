@@ -1,38 +1,23 @@
 \begin{Verbatim}[commandchars=\\\{\}]
-\PYG{c+cm}{/*}
-\PYG{c+cm}{ *O(n*n\PYGZca{}(1\PYGZhy{}1/k)),k为维度}
-\PYG{c+cm}{ */}
-\PYG{c+cp}{\PYGZsh{}include} \PYG{c+cpf}{\PYGZlt{}bits/stdc++.h\PYGZgt{}}
-
-\PYG{k}{using} \PYG{k}{namespace} \PYG{n}{std}\PYG{p}{;}
-
+\PYG{c+cm}{/*O(n*n\PYGZca{}(1\PYGZhy{}1/k)),k为维度*/}
 \PYG{k}{const} \PYG{k+kt}{int} \PYG{n}{N} \PYG{o}{=} \PYG{l+m+mf}{1e5} \PYG{o}{+} \PYG{l+m+mi}{5}\PYG{p}{;}
-
 \PYG{k}{const} \PYG{k+kt}{int} \PYG{n}{Mod} \PYG{o}{=} \PYG{l+m+mf}{1e9} \PYG{o}{+} \PYG{l+m+mi}{7}\PYG{p}{;}
-
 \PYG{k+kt}{int} \PYG{n}{nowD}\PYG{p}{,} \PYG{n}{ans}\PYG{p}{,} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{],} \PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{];}
-
 \PYG{k+kt}{int} \PYG{n}{n}\PYG{p}{,} \PYG{n}{m}\PYG{p}{,} \PYG{n}{a}\PYG{p}{[}\PYG{n}{N}\PYG{p}{],} \PYG{n}{b}\PYG{p}{[}\PYG{n}{N}\PYG{p}{],} \PYG{n}{c}\PYG{p}{[}\PYG{n}{N}\PYG{p}{],} \PYG{n}{d}\PYG{p}{[}\PYG{n}{N}\PYG{p}{];}
-
 \PYG{k}{struct} \PYG{n}{node} \PYG{p}{\PYGZob{}}
     \PYG{k+kt}{int} \PYG{n}{Max}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{],} \PYG{n}{Min}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{],} \PYG{n}{d}\PYG{p}{[}\PYG{l+m+mi}{3}\PYG{p}{];}
     \PYG{k+kt}{int} \PYG{n}{val}\PYG{p}{,} \PYG{n}{maxv}\PYG{p}{;}
     \PYG{n}{node} \PYG{o}{*}\PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{];}
-
     \PYG{n}{node}\PYG{p}{()} \PYG{p}{\PYGZob{}}
         \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{=} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{n+nb}{NULL}\PYG{p}{;}
         \PYG{n}{val} \PYG{o}{=} \PYG{n}{maxv} \PYG{o}{=} \PYG{l+m+mi}{0}\PYG{p}{;}
     \PYG{p}{\PYGZcb{}}
-
     \PYG{k+kt}{void} \PYG{n}{pushup}\PYG{p}{();}
-
     \PYG{k+kt}{bool} \PYG{k}{operator} \PYG{o}{\PYGZlt{}} \PYG{p}{(}\PYG{k}{const} \PYG{n}{node} \PYG{o}{\PYGZam{}}\PYG{n}{a}\PYG{p}{)} \PYG{k}{const} \PYG{p}{\PYGZob{}}
         \PYG{k}{return} \PYG{n}{d}\PYG{p}{[}\PYG{n}{nowD}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{a}\PYG{p}{.}\PYG{n}{d}\PYG{p}{[}\PYG{n}{nowD}\PYG{p}{];}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}\PYG{n}{Null}\PYG{p}{,} \PYG{n}{nodes}\PYG{p}{[}\PYG{n}{N}\PYG{p}{];}
-
 \PYG{n}{node} \PYG{o}{*}\PYG{n}{root} \PYG{o}{=} \PYG{o}{\PYGZam{}}\PYG{n}{Null}\PYG{p}{;}
-
 \PYG{k+kr}{inline} \PYG{k+kt}{void} \PYG{n}{node}\PYG{o}{::}\PYG{n}{pushup}\PYG{p}{()} \PYG{p}{\PYGZob{}}
     \PYG{k}{if} \PYG{p}{(}\PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{!=} \PYG{o}{\PYGZam{}}\PYG{n}{Null}\PYG{p}{)} \PYG{p}{\PYGZob{}}
         \PYG{k}{if} \PYG{p}{(}\PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Max}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{Max}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{])} \PYG{n}{Max}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{=} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Max}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{];}
@@ -49,7 +34,6 @@
         \PYG{k}{if} \PYG{p}{(}\PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{maxv} \PYG{o}{\PYGZgt{}} \PYG{n}{maxv}\PYG{p}{)} \PYG{n}{maxv} \PYG{o}{=} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{maxv}\PYG{p}{;}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kr}{inline} \PYG{n}{node} \PYG{o}{*}\PYG{n}{build}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{l}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{r}\PYG{p}{)} \PYG{p}{\PYGZob{}}
     \PYG{k+kt}{int} \PYG{n}{mid} \PYG{o}{=} \PYG{n}{l} \PYG{o}{+} \PYG{n}{r} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{nowD} \PYG{o}{=} \PYG{n}{rand}\PYG{p}{()} \PYG{o}{\PYGZpc{}} \PYG{l+m+mi}{3}\PYG{p}{;}
     \PYG{n}{nth\PYGZus{}element}\PYG{p}{(}\PYG{n}{nodes} \PYG{o}{+} \PYG{n}{l}\PYG{p}{,} \PYG{n}{nodes} \PYG{o}{+} \PYG{n}{mid}\PYG{p}{,} \PYG{n}{nodes} \PYG{o}{+} \PYG{n}{r} \PYG{o}{+} \PYG{l+m+mi}{1}\PYG{p}{);}
@@ -61,12 +45,10 @@
     \PYG{n}{res} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{pushup}\PYG{p}{();}
     \PYG{k}{return} \PYG{n}{res}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kr}{inline} \PYG{k+kt}{int} \PYG{n}{calc}\PYG{p}{(}\PYG{n}{node} \PYG{o}{*}\PYG{n}{o}\PYG{p}{)} \PYG{p}{\PYGZob{}}
     \PYG{k}{if} \PYG{p}{(}\PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Min}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{||} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Max}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{||} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Max}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{||} \PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{\PYGZlt{}} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{Min}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{k}{return} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{;}
     \PYG{k}{return} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{maxv}\PYG{p}{;}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kr}{inline} \PYG{k+kt}{void} \PYG{n}{query}\PYG{p}{(}\PYG{n}{node} \PYG{o}{*}\PYG{n}{o}\PYG{p}{)} \PYG{p}{\PYGZob{}}
     \PYG{k}{if} \PYG{p}{(}\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{val} \PYG{o}{\PYGZgt{}} \PYG{n}{ans} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZgt{}=} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{d}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZlt{}=} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{d}\PYG{p}{[}\PYG{l+m+mi}{1}\PYG{p}{]} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{x}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{\PYGZlt{}=} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{d}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{\PYGZam{}\PYGZam{}} \PYG{n}{y}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{]} \PYG{o}{\PYGZgt{}=} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{d}\PYG{p}{[}\PYG{l+m+mi}{2}\PYG{p}{])} \PYG{n}{ans} \PYG{o}{=} \PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{val}\PYG{p}{;}
     \PYG{k+kt}{int} \PYG{n}{dl}\PYG{p}{,} \PYG{n}{dr}\PYG{p}{;}
@@ -82,7 +64,6 @@
         \PYG{k}{if} \PYG{p}{(}\PYG{n}{dl} \PYG{o}{\PYGZgt{}} \PYG{n}{ans}\PYG{p}{)} \PYG{n}{query}\PYG{p}{(}\PYG{n}{o} \PYG{o}{\PYGZhy{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]);}
     \PYG{p}{\PYGZcb{}}
 \PYG{p}{\PYGZcb{}}
-
 \PYG{k+kt}{int} \PYG{n}{main}\PYG{p}{()} \PYG{p}{\PYGZob{}}
     \PYG{n}{ios}\PYG{o}{::}\PYG{n}{sync\PYGZus{}with\PYGZus{}stdio}\PYG{p}{(}\PYG{n+nb}{false}\PYG{p}{);}
     \PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{n} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{m}\PYG{p}{;}
