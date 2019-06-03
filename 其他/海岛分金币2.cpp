@@ -4,16 +4,11 @@ n个海盗分m个金币，依次做决策，如果不少于半数的人同意则
 如果一个海盗有多种方案均为最大收益，那么他会希望淘汰的人越多越好
 求出第x个做决策的海盗的最大可能受益和最小可能收益
 */
-#include <bits/stdc++.h>
-
-using namespace std;
-
 struct node {
     int min_v, max_v;
     node():min_v(0), max_v(0) {}
     node(int min_v, int max_v):min_v(min_v), max_v(max_v) {}
 };
-
 node ask(int n, int m, int x) {//n个人分m个金币，第x个做决策的人最少/最多分到多少个金币
     int y = n + 1 - x;
     if (n >= (m + 2) * 2) {

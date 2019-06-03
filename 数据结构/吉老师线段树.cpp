@@ -1,24 +1,13 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
-typedef long long ll;
-
 const int N = (1 << 20) + 5;
-
 #define lc (o << 1)
 #define rc (lc | 1)
 struct node {
 	int max1, max2, cnt;
 	ll sum;
 }tr[N << 1];
-
 int T, n, m;
-
 int op, x, y, t;
-
 int a[N];
-
 void pushup(int o) {
 	if (tr[lc].max1 == tr[rc].max1) {
 		tr[o].max1 = tr[lc].max1;
@@ -37,7 +26,6 @@ void pushup(int o) {
 	}
 	tr[o].sum = tr[lc].sum + tr[rc].sum;
 }
-
 void pushdown(int o) {
 	if (tr[o].max1 < tr[lc].max1) {
 		tr[lc].sum += 1ll * (tr[o].max1 - tr[lc].max1) * tr[lc].cnt;
@@ -48,7 +36,6 @@ void pushdown(int o) {
 		tr[rc].max1 = tr[o].max1;
 	}
 }
-
 void build(int o, int l, int r) {
 	if (l == r) {
 		tr[o].max1 = tr[o].sum = a[r];
@@ -60,7 +47,6 @@ void build(int o, int l, int r) {
 	build(rc, mid + 1, r);
 	pushup(o);
 }
-
 void update(int o, int l, int r, int s, int t, int v) {
 	if (v >= tr[o].max1) return;
 	pushdown(o);
@@ -76,7 +62,6 @@ void update(int o, int l, int r, int s, int t, int v) {
 	if (t >  mid) update(rc, mid + 1, r, s, t, v);
 	pushup(o);
 }
-
 ll ask_max(int o, int l, int r, int s, int t) {
 	if (s <= l && r <= t) return tr[o].max1;
 	pushdown(o);
@@ -86,7 +71,6 @@ ll ask_max(int o, int l, int r, int s, int t) {
 	if (t >  mid) res = max(res, ask_max(rc, mid + 1, r, s, t));
 	return res; 
 }
-
 ll ask_sum(int o, int l, int r, int s, int t) {
 	if (s <= l && r <= t) return tr[o].sum;
 	pushdown(o);
@@ -96,7 +80,6 @@ ll ask_sum(int o, int l, int r, int s, int t) {
 	if (t >  mid) res += ask_sum(rc, mid + 1, r, s, t);
 	return res; 
 }
-
 int main() {
 	ios::sync_with_stdio(false); 	
 	for (cin >> T; T --; ) {

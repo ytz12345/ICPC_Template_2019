@@ -2,49 +2,34 @@
  *为了维持树的平衡，可以一开始把所有点都读进来build
  *然后打flag标记该点是否被激活
  */
-#include <bits/stdc++.h>
-
-using namespace std;
-
 const int N = 5e5 + 5;
-
 const int inf = 1 << 30;
-
 int n, m;
-
 int ql, qr, ans, tot, nowD;
 //nowD = rand() & 1 ?
 struct Node {
     int d[2];
-
     bool operator < (const Node &a) const {
         if (d[nowD] == a.d[nowD]) return d[!nowD] < a.d[!nowD];
         return d[nowD] < a.d[nowD];
     }
 }pot[N];
-
 struct node {
     int min[2], max[2], d[2];
     node *c[2];
-
     node() {
         min[0] = min[1] = max[0] = max[1] = d[0] = d[1] = 0;
         c[0] = c[1] = NULL;
     }
-
     node(int x, int y);
-
     void update();
-
     
 }t[N], Null, *root;
-
 node::node(int x, int y) {
     min[0] = max[0] = d[0] = x;
     min[1] = max[1] = d[1] = y;
     c[0] = c[1] = &Null;
 }
-
 inline void node::update() {
     if (c[0] != &Null) {
         if (c[0] -> max[0] > max[0]) max[0] = c[0] -> max[0];
@@ -59,18 +44,15 @@ inline void node::update() {
         if (c[1] -> min[1] < min[1]) min[1] = c[1] -> min[1];
     }
 }
-
 inline void build(node *&o, int l, int r, int D) {
     int mid = l + r >> 1;
     nowD = D;
     nth_element(pot + l, pot + mid, pot + r + 1);
     o = new node(pot[mid].d[0], pot[mid].d[1]);
-
     if (l != mid) build(o -> c[0], l, mid - 1, !D);
     if (r != mid) build(o -> c[1], mid + 1, r, !D);
     o -> update();
 }
-
 inline void insert(node *o) {
     node *p = root;
     int D = 0;
@@ -79,7 +61,6 @@ inline void insert(node *o) {
         if (o -> max[1] > p -> max[1]) p -> max[1] = o -> max[1];
         if (o -> min[0] < p -> min[0]) p -> min[0] = o -> min[0];
         if (o -> min[1] < p -> min[1]) p -> min[1] = o -> min[1];
-
         if (o -> d[D] >= p -> d[D]) {
             if (p -> c[1] == &Null) {
                 p -> c[1] = o;
@@ -94,7 +75,6 @@ inline void insert(node *o) {
         D ^= 1;
     } 
 }
-
 inline int dist(node *o) {
     int dis = 0;
     if (ql < o -> min[0]) dis += o -> min[0] - ql;
@@ -103,7 +83,6 @@ inline int dist(node *o) {
     if (qr > o -> max[1]) dis += qr - o -> max[1];
     return dis; 
 }
-
 inline void query(node *o) {
     int dl, dr, d0;
     d0 = abs(o -> d[0] - ql) + abs(o -> d[1] - qr);
@@ -112,7 +91,6 @@ inline void query(node *o) {
     else dl = inf;
     if (o -> c[1] != &Null) dr = dist(o -> c[1]);
     else dr = inf;
-
     if (dl < dr) {
         if (dl < ans) query(o -> c[0]);
         if (dr < ans) query(o -> c[1]);
@@ -121,7 +99,6 @@ inline void query(node *o) {
         if (dl < ans) query(o -> c[0]);
     }
 }
-
 int main() {
     ios::sync_with_stdio(false);
     cin >> n >> m;

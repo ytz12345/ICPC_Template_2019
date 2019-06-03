@@ -1,24 +1,15 @@
-#include <bits/stdc++.h>
-
-using namespace std;
-
+/*LCA用ST表，总复杂度O(nlog)*/
+/*每次询问删去两条边后，剩下3棵树的最大直径长度*/
 const int N = 2e5 + 5;
-
 int T, n, m;
-
 int len, head[N], ST[20][N];
-
 struct edge{int u, v, w;}ee[N];
-
 int cnt, fa[N], log_2[N], st[N], en[N], dfn[N], dis[N], dep[N], pos[N];
-
 struct edges{int to, next, cost;}e[N];
-
 void add(int u, int v, int w) {
     e[++ len] = (edges){v, head[u], w}, head[u] = len;
     e[++ len] = (edges){u, head[v], w}, head[v] = len;
 }
-
 void dfs1(int u) {
     st[u] = ++ cnt, dfn[cnt] = u;
     for (int v, i = head[u]; i; i = e[i].next) {
@@ -29,7 +20,6 @@ void dfs1(int u) {
     }
     en[u] = cnt;
 }
-
 void dfs2(int u) {
     dfn[++ cnt] = u, pos[u] = cnt;
     for (int v, i = head[u]; i; i = e[i].next) {
@@ -38,24 +28,20 @@ void dfs2(int u) {
         dfs2(v), dfn[++ cnt] = u;
     }
 }
-
 int mmin(int x, int y) {
     if (dep[x] < dep[y]) return x;
     return y;
 }
-
 int lca(int u, int v) {
     static int w;
     if (pos[u] > pos[v]) swap(u, v);
     w = log_2[pos[v] - pos[u] + 1];
     return mmin(ST[w][pos[u]], ST[w][pos[v] - (1 << w) + 1]);
 }
-
 int dist(int u, int v) {
     int Lca = lca(u, v);
     return dis[u] + dis[v] - dis[Lca] * 2;
 }
-
 void build() {
     for (int i = 1; i <= cnt; i ++)
         ST[0][i] = dfn[i];
@@ -64,13 +50,10 @@ void build() {
             if (j + (1 << (i - 1)) > cnt) ST[i][j] = ST[i - 1][j];
             else ST[i][j] = mmin(ST[i - 1][j], ST[i - 1][j + (1 << (i - 1))]); 
 }
-
 int M;
-
 struct node {
     int l, r, dis;
 }tr[N << 1];
-
 void update(int o, int o1, int o2) {
     static int d; static node tmp;
     if (tr[o1].dis == -1) {tr[o] = tr[o2]; return;}
@@ -87,7 +70,6 @@ void update(int o, int o1, int o2) {
     if (d > tmp.dis) tmp.l = tr[o1].r, tmp.r = tr[o2].r, tmp.dis = d;
     tr[o] = tmp;
 }
-
 void ask(int s, int t) {
     if (s > t) return;
     for (s += M - 1, t += M + 1; s ^ t ^ 1; s >>= 1, t >>= 1) {
@@ -95,7 +77,6 @@ void ask(int s, int t) {
         if ( t&1) update(0, 0, t ^ 1);
     }
 }
-
 int main() {
     ios::sync_with_stdio(false);
     int u, v, w, ans; log_2[1] = 0;

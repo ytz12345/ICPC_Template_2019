@@ -1,30 +1,15 @@
 /*时间O(n*m/32) 空间O(n*n/blk) blk随便取*/
-#include <bits/stdc++.h>
-
-using namespace std;
-
 const int N = 1e5 + 2;
-
 const int BLK = 5000;
-
 int n, k, p;
-
 int d[N];
-
 vector <int> e[N], f[N], ck[N];
-
 int top, sta[N], in[N];
-
 int cnt, dfn[N], low[N], vis[N];
-
 int sum, bel[N];
-
 bitset <BLK> a[N];
-
 queue <int> q;
-
 int topo[N];
-
 void tarjan(int u) {
 	vis[u] = in[u] = 1;
 	sta[++ top] = u, dfn[u] = low[u] = ++ cnt;
@@ -44,11 +29,7 @@ void tarjan(int u) {
 		}
 	}
 }
-
 int main() {
-	freopen("input.txt", "r", stdin);
-	freopen("output.txt", "w", stdout);
-	ios::sync_with_stdio(false);
 	cin >> n >> k;
 	for (int u, v, i = 1; i <= k; i ++) {
 		cin >> u >> v;
@@ -59,7 +40,6 @@ int main() {
 		cin >> u >> v;
 		f[u].push_back(v);
 	}
-
 	for (int i = 1; i <= n; i ++)
 		if (!vis[i])
 			tarjan(i);
@@ -76,8 +56,6 @@ int main() {
 			f[bel[i]].push_back(bel[j]);
 			d[bel[j]] ++;
 		}
-
-
 	cnt = 0;
 	for (int i = 1; i <= sum; i ++)
 		if (!d[i])
@@ -90,7 +68,6 @@ int main() {
 			if (d[j] == 0) q.push(j);
 		}
 	}
-
 	for (int i = 1, t = (sum + BLK - 1) / BLK; i <= t; i ++) {
 		for (int j = sum; j; j --) {
 			int u = topo[j];
@@ -107,7 +84,6 @@ int main() {
 					return 0;
 				}
 	}
-
 	printf("YES\n%d\n", k);
 	for (int i = 1; i <= n; i ++)
 		for (int j : e[i])

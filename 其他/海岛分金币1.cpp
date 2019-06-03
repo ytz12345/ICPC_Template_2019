@@ -5,23 +5,13 @@
 solution:
 贪心模拟
 */
-#include <bits/stdc++.h>
-
 #define v first
 #define id second
-
-using namespace std;
-
 typedef pair<int, int> pr;
-
 const int N = 1010;
-
 int a[N][N];
-
 pr b[N];
-
 int n, m;
-
 int main() {
     cin >> n >> m;        
     a[1][1] = m;

@@ -1,25 +1,13 @@
-
 const int N = 600, M = 800000, inf = 0x3f3f3f3f;
-
 int s, t, ans, len, maxflow;
-
 int T, n, m, K, W;
-
 int head[N], incf[N], path[N], pre[N], vis[N], d[N];
-
-struct edge{
-	int to, next, cap, cost;
-}e[M];
-
-struct video {z
-	int s, t, w, op; 
-}a[N];
-
+struct edge{int to, next, cap, cost;}e[M];
+struct video {int s, t, w, op; }a[N];
 void add(int u, int v, int w, int c) {
 	e[++ len] = (edge){v, head[u], w, c}, head[u] = len;
 	e[++ len] = (edge){u, head[v], 0, -c}, head[v] = len;
 }
-
 bool spfa() {
 	deque <int> q;
 	q.push_back(s), incf[s] = inf;
@@ -49,7 +37,6 @@ bool spfa() {
 	}
 	return ans += incf[t] * d[t], 1;
 }
-
 int main() {
 	/*build graph*/
 	while(spfa());
