@@ -1,0 +1,5 @@
+latex/_minted-template/*
+latex/template.aux
+latex/template.log
+latex/template.out
+latex/template.toc
