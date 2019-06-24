@@ -1,0 +1,64 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{c+cm}{/*DSU}
+\PYG{c+cm}{ *用途:O(nlogn)解决无修改的子树询问问题，需要保证操作支持删除}
+\PYG{c+cm}{ *解决方法:对于每个节点，先对所有轻儿子，dfs下去求一遍，再消除影响}
+\PYG{c+cm}{ *	然后再dfs自己的重儿子，然后不消除影响，再加上所有轻儿子}
+\PYG{c+cm}{ *	就得到当前节点为根的子树的答案了}
+\PYG{c+cm}{ */}
+\PYG{k+kt}{int} \PYG{n}{n}\PYG{p}{,} \PYG{n}{c}\PYG{p}{[}\PYG{n}{N}\PYG{p}{];}
+\PYG{k+kt}{int} \PYG{n}{cnt}\PYG{p}{[}\PYG{n}{N}\PYG{p}{],} \PYG{n}{maxCnt}\PYG{p}{;}
+\PYG{k+kt}{int} \PYG{n}{siz}\PYG{p}{[}\PYG{n}{N}\PYG{p}{],} \PYG{n}{son}\PYG{p}{[}\PYG{n}{N}\PYG{p}{];}
+\PYG{n}{vector} \PYG{o}{\PYGZlt{}}\PYG{k+kt}{int}\PYG{o}{\PYGZgt{}} \PYG{n}{e}\PYG{p}{[}\PYG{n}{N}\PYG{p}{];}
+\PYG{n}{ll} \PYG{n}{ans}\PYG{p}{[}\PYG{n}{N}\PYG{p}{],} \PYG{n}{sum}\PYG{p}{[}\PYG{n}{N}\PYG{p}{];}
+\PYG{k+kt}{void} \PYG{n+nf}{dfs1}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{fr}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{n}{siz}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;}
+	\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n+nl}{v} \PYG{p}{:} \PYG{n}{e}\PYG{p}{[}\PYG{n}{u}\PYG{p}{])} \PYG{p}{\PYGZob{}}
+		\PYG{k}{if} \PYG{p}{(}\PYG{n}{v} \PYG{o}{==} \PYG{n}{fr}\PYG{p}{)} \PYG{k}{continue}\PYG{p}{;}
+		\PYG{n}{dfs1}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n}{u}\PYG{p}{);}
+		\PYG{n}{siz}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]} \PYG{o}{+=} \PYG{n}{siz}\PYG{p}{[}\PYG{n}{v}\PYG{p}{];}
+		\PYG{k}{if} \PYG{p}{(}\PYG{n}{siz}\PYG{p}{[}\PYG{n}{v}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{siz}\PYG{p}{[}\PYG{n}{son}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]])} \PYG{n}{son}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]} \PYG{o}{=} \PYG{n}{v}\PYG{p}{;}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{void} \PYG{n+nf}{update}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{x}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{y}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{n}{sum}\PYG{p}{[}\PYG{n}{cnt}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]]} \PYG{o}{\PYGZhy{}=} \PYG{n}{x}\PYG{p}{;}
+	\PYG{n}{cnt}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{+=} \PYG{n}{y}\PYG{p}{;}
+	\PYG{n}{sum}\PYG{p}{[}\PYG{n}{cnt}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]]} \PYG{o}{+=} \PYG{n}{x}\PYG{p}{;}
+	\PYG{k}{if} \PYG{p}{(}\PYG{n}{cnt}\PYG{p}{[}\PYG{n}{x}\PYG{p}{]} \PYG{o}{\PYGZgt{}} \PYG{n}{maxCnt}\PYG{p}{)} \PYG{n}{maxCnt} \PYG{o}{=} \PYG{n}{cnt}\PYG{p}{[}\PYG{n}{x}\PYG{p}{];}
+	\PYG{k}{if} \PYG{p}{(}\PYG{n}{sum}\PYG{p}{[}\PYG{n}{maxCnt}\PYG{p}{]} \PYG{o}{==} \PYG{l+m+mi}{0}\PYG{p}{)} \PYG{n}{maxCnt} \PYG{o}{\PYGZhy{}\PYGZhy{}}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{void} \PYG{n+nf}{dfs3}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{fr}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{val}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{n}{update}\PYG{p}{(}\PYG{n}{c}\PYG{p}{[}\PYG{n}{u}\PYG{p}{],} \PYG{n}{val}\PYG{p}{);}
+	\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n+nl}{v} \PYG{p}{:} \PYG{n}{e}\PYG{p}{[}\PYG{n}{u}\PYG{p}{])} \PYG{p}{\PYGZob{}}
+		\PYG{k}{if} \PYG{p}{(}\PYG{n}{v} \PYG{o}{==} \PYG{n}{fr}\PYG{p}{)} \PYG{k}{continue}\PYG{p}{;}
+		\PYG{n}{dfs3}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n}{u}\PYG{p}{,} \PYG{n}{val}\PYG{p}{);}
+	\PYG{p}{\PYGZcb{}}
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{void} \PYG{n+nf}{dfs2}\PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{u}\PYG{p}{,} \PYG{k+kt}{int} \PYG{n}{fr}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+	\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n+nl}{v} \PYG{p}{:} \PYG{n}{e}\PYG{p}{[}\PYG{n}{u}\PYG{p}{])} \PYG{p}{\PYGZob{}}
+		\PYG{k}{if} \PYG{p}{(}\PYG{n}{v} \PYG{o}{==} \PYG{n}{fr} \PYG{o}{||} \PYG{n}{v} \PYG{o}{==} \PYG{n}{son}\PYG{p}{[}\PYG{n}{u}\PYG{p}{])} \PYG{k}{continue}\PYG{p}{;}
+		\PYG{n}{dfs2}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n}{u}\PYG{p}{),} \PYG{n}{dfs3}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n}{u}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{1}\PYG{p}{);}
+	\PYG{p}{\PYGZcb{}}
+	\PYG{k}{if} \PYG{p}{(}\PYG{n}{son}\PYG{p}{[}\PYG{n}{u}\PYG{p}{])} \PYG{n}{dfs2}\PYG{p}{(}\PYG{n}{son}\PYG{p}{[}\PYG{n}{u}\PYG{p}{],} \PYG{n}{u}\PYG{p}{);}
+	\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n+nl}{v} \PYG{p}{:} \PYG{n}{e}\PYG{p}{[}\PYG{n}{u}\PYG{p}{])} \PYG{p}{\PYGZob{}}
+		\PYG{k}{if} \PYG{p}{(}\PYG{n}{v} \PYG{o}{==} \PYG{n}{fr} \PYG{o}{||} \PYG{n}{v} \PYG{o}{==} \PYG{n}{son}\PYG{p}{[}\PYG{n}{u}\PYG{p}{])} \PYG{k}{continue}\PYG{p}{;}
+		\PYG{n}{dfs3}\PYG{p}{(}\PYG{n}{v}\PYG{p}{,} \PYG{n}{u}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{);}
+	\PYG{p}{\PYGZcb{}}
+	\PYG{n}{update}\PYG{p}{(}\PYG{n}{c}\PYG{p}{[}\PYG{n}{u}\PYG{p}{],} \PYG{l+m+mi}{1}\PYG{p}{);}
+	\PYG{n}{ans}\PYG{p}{[}\PYG{n}{u}\PYG{p}{]} \PYG{o}{=} \PYG{n}{sum}\PYG{p}{[}\PYG{n}{maxCnt}\PYG{p}{];}
+\PYG{p}{\PYGZcb{}}
+\PYG{k+kt}{int} \PYG{n+nf}{main}\PYG{p}{()} \PYG{p}{\PYGZob{}}
+	\PYG{n}{ios}\PYG{o}{::}\PYG{n}{sync\PYGZus{}with\PYGZus{}stdio}\PYG{p}{(}\PYG{n+nb}{false}\PYG{p}{);}
+	\PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{n}\PYG{p}{;}
+	\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}=} \PYG{n}{n}\PYG{p}{;} \PYG{n}{i} \PYG{o}{++}\PYG{p}{)}
+		\PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{c}\PYG{p}{[}\PYG{n}{i}\PYG{p}{];}
+	\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{u}\PYG{p}{,} \PYG{n}{v}\PYG{p}{,} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}} \PYG{n}{n}\PYG{p}{;} \PYG{n}{i} \PYG{o}{++}\PYG{p}{)} \PYG{p}{\PYGZob{}}
+		\PYG{n}{cin} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{u} \PYG{o}{\PYGZgt{}\PYGZgt{}} \PYG{n}{v}\PYG{p}{;}
+		\PYG{n}{e}\PYG{p}{[}\PYG{n}{u}\PYG{p}{].}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{v}\PYG{p}{);}
+		\PYG{n}{e}\PYG{p}{[}\PYG{n}{v}\PYG{p}{].}\PYG{n}{push\PYGZus{}back}\PYG{p}{(}\PYG{n}{u}\PYG{p}{);}
+	\PYG{p}{\PYGZcb{}}
+	\PYG{n}{dfs1}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{),} \PYG{n}{dfs2}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{l+m+mi}{1}\PYG{p}{);}
+	\PYG{k}{for} \PYG{p}{(}\PYG{k+kt}{int} \PYG{n}{i} \PYG{o}{=} \PYG{l+m+mi}{1}\PYG{p}{;} \PYG{n}{i} \PYG{o}{\PYGZlt{}=} \PYG{n}{n}\PYG{p}{;} \PYG{n}{i} \PYG{o}{++}\PYG{p}{)}
+		\PYG{n}{cout} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{n}{ans}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]} \PYG{o}{\PYGZlt{}\PYGZlt{}} \PYG{l+s+sc}{\PYGZsq{} \PYGZsq{}}\PYG{p}{;}	
+	\PYG{k}{return} \PYG{l+m+mi}{0}\PYG{p}{;}
+\PYG{p}{\PYGZcb{}}
+\end{Verbatim}

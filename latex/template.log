@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.5.31)  10 JUN 2019 18:53
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019) (preloaded format=xelatex 2019.5.31)  24 JUN 2019 11:37
 entering extended mode
  \write18 enabled.
  %&-line parsing enabled.
@@ -1116,64 +1116,66 @@ LaTeX Font Info:    Font shape `TU/lmtt/bx/n' in size <10> not available
 27813.pygtex [5] [6])
 (./_minted-template/0E903AF518311B35AC94F6FE0439F891210F39313855E05EA7100432D9F
 D6A28.pygtex [7])
+(./_minted-template/A2E692F391D702B8AE55B9DFC2C6F36C3F27B0FB61EBC7A21898F901662
+03529.pygtex [8])
 (./_minted-template/A0721C33DE9D84E6F3F2B2BD08756F23CFC67C52B935A56A900DDC7D042
-48486.pygtex)
+48486.pygtex [9])
 (./_minted-template/E51F7B1A1BFDDE5B378EC5E809CC505B1E8C601FC08C0EDAE9FA73A37CE
-9CCDB.pygtex [8])
+9CCDB.pygtex)
 (./_minted-template/373DD1ABA77E4AA02EB27591942EE2AC28358EEEA3B5B014C118A55F13B
-69107.pygtex [9]) [10]
+69107.pygtex [10]) [11]
 (./_minted-template/7784E0A50432D295CDCE3F5B964547AD9EEA1A847271A11C73C27C652FF
-AACF8.pygtex [11])
+AACF8.pygtex [12])
 (./_minted-template/6D3152AA4B7D1BDC7DC79580F4FC05C1B4A0F994D1D443023809290294A
-169CE.pygtex [12])
+169CE.pygtex [13])
 (./_minted-template/B39C0076AB32229035B7BFCBC3D4B303906E8A4796A32DB69078D9048B9
-CE9EA.pygtex [13] [14])
+CE9EA.pygtex [14] [15])
 (./_minted-template/EDD9793AC174F3E87523F3B6586BD72F810A7F2A94977D46D24976147C8
-0C0C6.pygtex [15] [16])
+0C0C6.pygtex [16] [17])
 (./_minted-template/7E4A047EB166BE0E4F6CB26DF7A7A7620047E815A2F903E2D37F9B92FF4
-B8F38.pygtex [17] [18])
+B8F38.pygtex [18] [19])
 (./_minted-template/95481DEE6E790E7C17A357F5C4D552AE7218E9323CAA4B9BEFF021BE2D6
-E2F79.pygtex [19] [20])
+E2F79.pygtex [20] [21])
 (./_minted-template/BAA2CEE60B48485898E4088D0107F4A6538B4B460A97748241FC8D8D842
-C0760.pygtex [21] [22]) [23]
+C0760.pygtex [22] [23]) [24]
 (./_minted-template/F32F8FFBCBF3736140C66BCB21D22C3A74A14C74568558E408B87AAD70E
 840DB.pygtex)
 (./_minted-template/882292C0771F05B029255165C74D795A80FF3D6C6F7BD646AD5818DE6C7
-40FC1.pygtex [24]) [25]
+40FC1.pygtex [25]) [26]
 (./_minted-template/9E1765B844150CF65DB981035CE45F8ED2A014B7E9E337C76EBE6EB106E
-97E93.pygtex [26]) [27]
+97E93.pygtex [27]) [28]
 (./_minted-template/AAD7AA003120A91F6CF118657B3F776FA4F6C9DC4D9361C2D0C8DE2F614
 BB4A1.pygtex)
 (./_minted-template/63F43E9226A6ABDE5F98482E3E6DD9F709AA96831AB3944F6FAD331D0D5
-349D0.pygtex [28])
+349D0.pygtex [29])
 (./_minted-template/34D80CBF9B88993FC51D17CE6DBD7EC82E021C96C6B99D149371B82D7FF
-584C9.pygtex [29] [30])
+584C9.pygtex [30] [31])
 (./_minted-template/936833EC2E4E570C31DB67322E21BDFA5365175BF2BA5E5E215EB951B07
 37114.pygtex)
 (./_minted-template/100C2C15F56E99172398AEF1F82C2AC0AC7FD41C43C3339617B8817229E
 CE931.pygtex)
 (./_minted-template/B2B52462C0D5D00638E49A66061F6411A1421D44F51FA358F40D5AA63C0
-6E6A7.pygtex [31])
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 112.
- [32]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 112.
+6E6A7.pygtex [32])
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 115.
+ [33]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 115.
  (./template.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 112.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 112.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 115.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 115.
 Package rerunfilecheck Info: File `template.out' has not changed.
-(rerunfilecheck)             Checksum: 3DAB84C99527F16437A30D81E0ACD216.
+(rerunfilecheck)             Checksum: 87D22074351809B4CC2E1B81D0787473.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 26188 strings out of 492922
- 523251 string characters out of 6133407
- 675800 words of memory out of 5000000
- 29943 multiletter control sequences out of 15000+600000
+ 26192 strings out of 492922
+ 523578 string characters out of 6133407
+ 675950 words of memory out of 5000000
+ 29944 multiletter control sequences out of 15000+600000
  535650 words of font info for 61 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  48i,11n,75p,1018b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on template.pdf (32 pages).
+Output written on template.pdf (33 pages).
