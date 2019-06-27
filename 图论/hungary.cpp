@@ -18,6 +18,8 @@ int main() {
 	for (int u, v, i = 1; i <= m; i ++) {
 		scanf("%d %d", &u, &v);
 		e[v].push_back(u);
+		// 要输出左侧点连接的右侧点，连边时就由右边点向左边连边
+		// 连边(u->v)，输出的pre[v]就是右边的点了
 	}
 	for (tim = 1; tim <= n2; tim ++) 
 		if (dfs(tim)) ans ++;
