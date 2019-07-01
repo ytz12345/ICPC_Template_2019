@@ -45,8 +45,8 @@ namespace minRectCover {
 		n = cnt + 1;
 		hull[top = 1] = p[0];
 		for (int i = 1; i < n; i ++) {
-			while (top > 1 && 
-				(hull[top] - hull[top - 1]) * (p[i] - hull[top]) < eps) top --;
+			while (top > 1 && (hull[top] - hull[top - 1]) 
+			* (p[i] - hull[top]) < eps) top --;
 			hull[++ top] = p[i];
 		}
 		hull[0] = hull[top];
@@ -64,9 +64,11 @@ namespace minRectCover {
 			D = abs(q[i] - q[i + 1]);
 			while (sgn((q[i + 1] - q[i]) * (q[t + 1] - q[i]) - 
 				(q[i + 1] - q[i]) * (q[t] - q[i])) > -1) t = (t + 1) % n;
-			while (sgn((q[i + 1] - q[i]) / (q[r + 1] - q[i]) - (q[i + 1] - q[i]) / (q[r] - q[i])) > -1) r = (r + 1) % n;
+			while (sgn((q[i + 1] - q[i]) / (q[r + 1] - q[i]) - (q[i + 1] 
+				- q[i]) / (q[r] - q[i])) > -1) r = (r + 1) % n;
 			if (i == 0) l = r;
-			while (sgn((q[i + 1] - q[i]) / (q[l + 1] - q[i]) - (q[i + 1] - q[i]) / (q[l] - q[i])) <  1) l = (l + 1) % n;
+			while (sgn((q[i + 1] - q[i]) / (q[l + 1] - q[i]) - (q[i + 1] 
+				- q[i]) / (q[l] - q[i])) <  1) l = (l + 1) % n;
 			L = fabs((q[i + 1] - q[i]) / (q[l] - q[i]) / D); 
 			R = fabs((q[i + 1] - q[i]) / (q[r] - q[i]) / D);
 			H = fabs((q[i + 1] - q[i]) * (q[t] - q[i]) / D);
@@ -75,7 +77,8 @@ namespace minRectCover {
 				ans = tmp;
 				rc[0] = q[i] + (q[i + 1] - q[i]) * (R / D);//右下
 				rc[1] = rc[0] + vec(vertical(q[i], q[i + 1])) * H;//右上
-				rc[2] = rc[1] - (rc[0] - q[i]) * ((R + L) / abs(q[i] - rc[0]));//左上
+				rc[2] = rc[1] - (rc[0] - q[i]) * ((R + L) 
+					/ abs(q[i] - rc[0]));//左上
 				rc[3] = rc[2] - (rc[1] - rc[0]); 
 			}
 		}	
