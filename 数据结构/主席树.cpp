@@ -14,6 +14,7 @@ struct {
 int tot, root[N];
 int build(int l, int r) {
     int x = ++ tot;
+    s(x) = sz(x) = 0;
     if (l < r) {
         l(x) = build(l, mid);
         r(x) = build(mid + 1, r); 
