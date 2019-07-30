@@ -3,12 +3,6 @@
  *
  *pollard_rho算法, O(n^1/4)实现大整数的质因数分解
  */
-#include <bits/stdc++.h>
-
-using namespace std;
-
-typedef long long ll;
-
 namespace PollardRho {
     const int T = 20;//测试次数
     ll qmul(ll a, ll b, ll p) {
