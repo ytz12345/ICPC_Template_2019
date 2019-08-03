@@ -8,10 +8,6 @@
 \usepackage{fancyhdr}  % 页眉页脚
 \usepackage{minted}    % 代码高亮
 \usepackage[colorlinks]{hyperref}  % 目录可跳转
-\usepackage{txfonts}
-\usepackage{fontspec}
-\usepackage{amsmath}
-\usepackage{amssymb}
 
 % 定义页眉页脚
 \pagestyle{fancy}
@@ -28,132 +24,133 @@
 \maketitle % 封面
 \newpage % 换页
 \tableofcontents % 目录
+
 \newpage
-\section{一些注意事项} % 一级标题
-\subsection{需要注意的问题} % 二级标题
-\inputminted[breaklines]{text}{../注意事项/需要注意的问题.txt} % 插入代码文件
-
+\section{注意事项} % 一级标题
 \subsection{需要想到的方法} % 二级标题
-\inputminted[breaklines]{text}{../注意事项/需要想到的方法.txt} % 插入代码文件
+\inputminted[breaklines]{text}{../注意事项/需要想到的方法.txt}
 
-% \newpage
-% \section{图论} % 一级标题
-% \subsection{线段树维护树直径} % 二级标题
-% \inputminted[breaklines]{cpp}{../图论/线段树维护树直径.cpp} % 插入代码文件
+\subsection{需要注意的问题} % 二级标题
+\inputminted[breaklines]{text}{../注意事项/需要注意的问题.txt}
 
-% \subsection{有向图判断两个点能否到达} % 二级标题
-% \inputminted[breaklines]{text}{../图论/有向图判断两个点能否到达.cpp} % 插入代码文件
+\newpage
+\section{图论} % 一级标题
+\subsection{线段树维护树直径} % 二级标题
+\inputminted[breaklines]{c++}{../图论/线段树维护树直径.cpp} % 插入代码文件
 
-% \subsection{spfa费用流} % 二级标题
-% \inputminted[breaklines]{text}{../图论/spfa费用流.cpp} % 插入代码文件
+\subsection{有向图判断两个点能否到达} % 二级标题
+\inputminted[breaklines]{c++}{../图论/有向图判断两个点能否到达.cpp} % 插入代码文件
 
-% \subsection{dsu} % 二级标题
-% \inputminted[breaklines]{text}{../图论/dsu.cpp} % 插入代码文件
+\subsection{spfa费用流} % 二级标题
+\inputminted[breaklines]{c++}{../图论/spfa费用流.cpp} % 插入代码文件
 
-% \subsection{长链剖分} % 二级标题
-% \inputminted[breaklines]{text}{../图论/长链剖分.cpp} % 插入代码文件
+\subsection{dsu} % 二级标题
+\inputminted[breaklines]{c++}{../图论/dsu.cpp} % 插入代码文件
 
-% \subsection{LCT} % 二级标题
-% \inputminted[breaklines]{text}{../图论/LCT.cpp} % 插入代码文件
+\subsection{长链剖分} % 二级标题
+\inputminted[breaklines]{c++}{../图论/长链剖分.cpp} % 插入代码文件
 
-% \subsection{hungary} % 二级标题
-% \inputminted[breaklines]{text}{../图论/hungary.cpp} % 插入代码文件
+\subsection{LCT} % 二级标题
+\inputminted[breaklines]{c++}{../图论/LCT.cpp} % 插入代码文件
 
-% \subsection{dinic最大流} % 二级标题
-% \inputminted[breaklines]{text}{../图论/dinic最大流.cpp} % 插入代码文件
+\subsection{hungary} % 二级标题
+\inputminted[breaklines]{c++}{../图论/hungary.cpp} % 插入代码文件
 
-% \subsection{DAG删去无用边} % 二级标题
-% \inputminted[breaklines]{text}{../图论/DAG删去无用边.cpp} % 插入代码文件
+\subsection{dinic最大流} % 二级标题
+\inputminted[breaklines]{c++}{../图论/dinic最大流.cpp} % 插入代码文件
 
-% \subsection{树分治} % 二级标题
-% \inputminted[breaklines]{text}{../图论/树分治.cpp} % 插入代码文件
+\subsection{DAG删去无用边} % 二级标题
+\inputminted[breaklines]{c++}{../图论/DAG删去无用边.cpp} % 插入代码文件
 
-% \subsection{支配树}
-% \subsubsection{DAG支配树(含倍增LCA}
-% \inputminted[breaklines]{text}{../图论/DAG支配树.cpp}
+\subsection{树分治} % 二级标题
+\inputminted[breaklines]{c++}{../图论/树分治.cpp} % 插入代码文件
 
-% % \twocolumn  % 分页显示
-% \newpage
-% \section{数据结构}
-% \subsection{splay}
-% \inputminted[breaklines]{text}{../数据结构/splay.cpp}
+\subsection{支配树}
+\subsubsection{DAG支配树(含倍增LCA}
+\inputminted[breaklines]{c++}{../图论/DAG支配树.cpp}
 
-% \subsection{treap}
-% \inputminted[breaklines]{text}{../数据结构/treap.cpp}
+% \twocolumn  % 分页显示
+\newpage
+\section{数据结构}
+\subsection{splay}
+\inputminted[breaklines]{c++}{../数据结构/splay.cpp}
 
-% \subsection{主席树}
-% \inputminted[breaklines]{text}{../数据结构/主席树.cpp}
+\subsection{treap}
+\inputminted[breaklines]{c++}{../数据结构/treap.cpp}
 
-% \subsection{吉老师线段树}
-% \inputminted[breaklines]{text}{../数据结构/吉老师线段树.cpp}
+\subsection{主席树}
+\inputminted[breaklines]{c++}{../数据结构/主席树.cpp}
 
-% \subsection{KDTree}
-% \subsubsection{3维KDtree}
-% \inputminted[breaklines]{text}{../数据结构/3维KDtree.cpp}
+\subsection{吉老师线段树}
+\inputminted[breaklines]{c++}{../数据结构/吉老师线段树.cpp}
 
-% \subsubsection{KDtree二维空间区间覆盖单点查询}
-% \inputminted[breaklines]{text}{../数据结构/KDtree二维空间区间覆盖单点查询.cpp}
+\subsection{KDTree}
+\subsubsection{3维KDtree}
+\inputminted[breaklines]{c++}{../数据结构/3维KDtree.cpp}
 
-% \subsubsection{KDtree二维空间单点修改区间查询}
-% \inputminted[breaklines]{text}{../数据结构/KDtree二维空间单点修改区间查询.cpp}
+\subsubsection{KDtree二维空间区间覆盖单点查询}
+\inputminted[breaklines]{c++}{../数据结构/KDtree二维空间区间覆盖单点查询.cpp}
 
-% \subsubsection{KDtree找最近点}
-% \inputminted[breaklines]{text}{../数据结构/KDtree找最近点.cpp}
+\subsubsection{KDtree二维空间单点修改区间查询}
+\inputminted[breaklines]{c++}{../数据结构/KDtree二维空间单点修改区间查询.cpp}
 
-% % \twocolumn  % 分页显示
-% \newpage
-% \section{构造}
-% \subsection{若干排列使所有数对都出现一次}
-% \inputminted[breaklines]{text}{../构造/若干排列使所有数对都出现一次.cpp}
+\subsubsection{KDtree找最近点}
+\inputminted[breaklines]{c++}{../数据结构/KDtree找最近点.cpp}
 
-% \subsection{rec-free}
-% \inputminted[breaklines]{text}{../构造/rec-free.cpp}
+% \twocolumn  % 分页显示
+\newpage
+\section{构造}
+\subsection{若干排列使所有数对都出现一次}
+\inputminted[breaklines]{c++}{../构造/若干排列使所有数对都出现一次.cpp}
 
-% \subsection{点边均整数多边形}
-% \inputminted[breaklines]{text}{../构造/点边均整数多边形.cpp}
+\subsection{rec-free}
+\inputminted[breaklines]{c++}{../构造/rec-free.cpp}
 
-% % \twocolumn  % 分页显示
-% \newpage
-% \section{计算几何}
-% \subsection{最小矩形覆盖含凸包和旋转卡壳}
-% \inputminted[breaklines]{text}{../计算几何/最小矩形覆盖含凸包和旋转卡壳.cpp}
+\subsection{点边均整数多边形}
+\inputminted[breaklines]{c++}{../构造/点边均整数多边形.cpp}
 
-% % \twocolumn  % 分页显示
-% \newpage
-% \section{数论}
-% \subsection{CRT}
-% \inputminted[breaklines]{text}{../数论/CRT.cpp}
+% \twocolumn  % 分页显示
+\newpage
+\section{计算几何}
+\subsection{最小矩形覆盖含凸包和旋转卡壳}
+\inputminted[breaklines]{c++}{../计算几何/最小矩形覆盖含凸包和旋转卡壳.cpp}
 
-% \subsection{素数判定+大整数质因数分解}
-% \inputminted[breaklines]{text}{../数论/素数判定+大整数质因数分解.cpp}
+% \twocolumn  % 分页显示
+\newpage
+\section{数论}
+\subsection{CRT}
+\inputminted[breaklines]{c++}{../数论/CRT.cpp}
 
-% % \twocolumn  % 分页显示
-% \newpage
-% \section{字符串}
-% \subsection{KMP}
-% \inputminted[breaklines]{text}{../字符串/KMP.cpp}
+\subsection{素数判定+大整数质因数分解}
+\inputminted[breaklines]{c++}{../数论/素数判定+大整数质因数分解.cpp}
 
-% % \twocolumn  % 分页显示
-% \newpage
-% \section{其他}
-% \subsection{数字哈希}
-% \inputminted[breaklines]{text}{../其他/数字哈希.cpp}
+% \twocolumn  % 分页显示
+\newpage
+\section{字符串}
+\subsection{KMP}
+\inputminted[breaklines]{c++}{../字符串/KMP.cpp}
 
-% \subsection{海岛分金币}
-% \subsubsection{海岛分金币1}
-% \inputminted[breaklines]{text}{../其他/海岛分金币1.cpp}
+% \twocolumn  % 分页显示
+\newpage
+\section{其他}
+\subsection{数字哈希}
+\inputminted[breaklines]{c++}{../其他/数字哈希.cpp}
 
-% \subsubsection{海岛分金币2}
-% \inputminted[breaklines]{text}{../其他/海岛分金币2.cpp}
+\subsection{海岛分金币}
+\subsubsection{海岛分金币1}
+\inputminted[breaklines]{c++}{../其他/海岛分金币1.cpp}
 
-% \subsection{根号枚举}
-% \inputminted[breaklines]{text}{../其他/根号枚举.cpp}
+\subsubsection{海岛分金币2}
+\inputminted[breaklines]{c++}{../其他/海岛分金币2.cpp}
 
-% \subsection{读入输出外挂}
-% \inputminted[breaklines]{text}{../其他/读入输出外挂.cpp}
+\subsection{根号枚举}
+\inputminted[breaklines]{c++}{../其他/根号枚举.cpp}
 
-% \subsection{给定小数化成分数}
-% \inputminted[breaklines]{python}{../其他/给定小数化成分数.py}
+\subsection{读入输出外挂}
+\inputminted[breaklines]{c++}{../其他/读入输出外挂.cpp}
+
+\subsection{给定小数化成分数}
+\inputminted[breaklines]{python}{../其他/给定小数化成分数.py}
 
 %\newpage
 %\section{Others}
