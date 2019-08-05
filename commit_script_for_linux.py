@@ -9,6 +9,7 @@ s = sys.argv[1]
 for i in range(2, n):
 	s += ' ' + sys.argv[i]
 
+os.system('git pull')
 os.system('git add -A')
 os.system('git commit -m \'' + s + '\'')
 os.system('git push')
