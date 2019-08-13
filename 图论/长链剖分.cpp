@@ -7,7 +7,7 @@
  * 防爆栈trick:像重链剖分一样改成bfs
  */
 int n, m;
-double k, a[N], b[N];
+double k, a[N], b[N], val[N];
 int len[N], son[N];
 vector <int> e[N];
 double tmp[N], *ptr, *f[N], temp[N];
@@ -54,6 +54,7 @@ bool solve(int u, int fr) {
 }
 bool judge(double mid) {
     f[1] = ptr = tmp, ptr += len[1], k = mid;
+    for (int i = 1; i <= n; i ++) val[i] = a[i] - b[i] * k;
     return solve(1, 1);
 }
 int main() {
