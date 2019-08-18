@@ -60,8 +60,8 @@ namespace minRectCover {
 		double ans = 1e20;
 		int l = 1, r = 1, t = 1;
 		double L, R, D, H;
-		for (int i = 0; i < n; i ++) {
-			D = abs(q[i] - q[i + 1]);
+		for (int i = 0; i < n; i ++) {//旋转卡壳
+			D = abs(q[i] - q[i + 1]);//以q[i]和q[i+1]所在直线为底边
 			while (sgn((q[i + 1] - q[i]) * (q[t + 1] - q[i]) - 
 				(q[i + 1] - q[i]) * (q[t] - q[i])) > -1) t = (t + 1) % n;
 			while (sgn((q[i + 1] - q[i]) / (q[r + 1] - q[i]) - (q[i + 1] 
@@ -69,9 +69,9 @@ namespace minRectCover {
 			if (i == 0) l = r;
 			while (sgn((q[i + 1] - q[i]) / (q[l + 1] - q[i]) - (q[i + 1] 
 				- q[i]) / (q[l] - q[i])) <  1) l = (l + 1) % n;
-			L = fabs((q[i + 1] - q[i]) / (q[l] - q[i]) / D); 
-			R = fabs((q[i + 1] - q[i]) / (q[r] - q[i]) / D);
-			H = fabs((q[i + 1] - q[i]) * (q[t] - q[i]) / D);
+			L = fabs((q[i + 1] - q[i]) / (q[l] - q[i]) / D);//直线向左延伸长度
+			R = fabs((q[i + 1] - q[i]) / (q[r] - q[i]) / D);//向右延伸长度
+			H = fabs((q[i + 1] - q[i]) * (q[t] - q[i]) / D);//t为与底边垂直距离最大的点
 			double tmp = (R + L) * H;
 			if (tmp < ans) {
 				ans = tmp;
