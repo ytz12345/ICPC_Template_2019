@@ -3,16 +3,6 @@ const int K = 2;
 ll mod;
 struct matrix {
 	ll c[K][K];
-	void clear() {memset (c, 0, sizeof c);}
-	matrix operator * (const matrix&a) const {
-		matrix res; res.clear();
-		for (int k = 0; k < K; k ++)
-			for (int i = 0; i < K; i ++)
-				for (int j = 0; j < K; j ++)
-					res.c[i][j] = (res.c[i][j] 
-						+ c[i][k] * a.c[k][j] % mod) % mod;
-		return res;
-	}
 
 	matrix operator ^ (const char *s) const {
 		matrix res, x = *this, y = x; res.clear();

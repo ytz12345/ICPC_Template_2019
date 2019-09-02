@@ -20,13 +20,13 @@ void pushdown(int o, int l, int r, Seg sg){
     if((l1 > l2 && pos >= mid) || (r1 > r2 && pos < mid)) tr[o].s = sg;
 }
 void add(int o, int l, int r, int s, int t, Seg sg) {
-	if (s <= l && r <= t) return (void)pushdown(o, l, r, sg);
-	if (s <= mid) add(lc, l, mid, s, t, sg);
-	if (mid <  t) add(rc, mid + 1, r, s, t, sg);
+    if (s <= l && r <= t) return (void)pushdown(o, l, r, sg);
+    if (s <= mid) add(lc, l, mid, s, t, sg);
+    if (mid <  t) add(rc, mid + 1, r, s, t, sg);
 }
 Seg query(int o, int l, int r, int p) {
-	if (l == r) return tr[o].hav ? tr[o].s : (Seg){0, 0, 0};
-	Seg sg = p <= mid ? query(lc, l, mid, p) : query(rc, mid + 1, r, p);
+    if (l == r) return tr[o].hav ? tr[o].s : (Seg){0, 0, 0};
+    Seg sg = p <= mid ? query(lc, l, mid, p) : query(rc, mid + 1, r, p);
     if (!tr[o].hav) return sg;    
     double p1 = tr[o].s.k * p + tr[o].s.b, p2 = sg.k * p + sg.b;
     if(!sg.id || (p1 > p2 || (fabs(p1 - p2) < eps && tr[o].s.id < sg.id))) sg = tr[o].s;

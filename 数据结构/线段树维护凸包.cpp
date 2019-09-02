@@ -19,10 +19,12 @@ void add(int p, const point &pt, int o = 1, int l = 1, int r = M) {
         sort (tr[o].begin(), tr[o].end());
         for (int i = 0; i <= r - l; i ++) {
             while(v1[o].size() > 1 && ((tr[o][i] - v1[o][v1[o].size() - 1]) ^ 
-                (v1[o][v1[o].size() - 2] - v1[o][v1[o].size() - 1])) >= 0) v1[o].pop_back();
+                (v1[o][v1[o].size() - 2] - v1[o][v1[o].size() - 1])) >= 0) 
+                v1[o].pop_back();
             v1[o].push_back(tr[o][i]);
             while(v2[o].size() > 1 && ((tr[o][i] - v2[o][v2[o].size() - 1]) ^ 
-                (v2[o][v2[o].size() - 2] - v2[o][v2[o].size() - 1])) <= 0) v2[o].pop_back();
+                (v2[o][v2[o].size() - 2] - v2[o][v2[o].size() - 1])) <= 0) 
+                v2[o].pop_back();
             v2[o].push_back(tr[o][i]);
         }
     }

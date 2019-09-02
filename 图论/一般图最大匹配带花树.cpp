@@ -1,7 +1,4 @@
 /*时间复杂度O(n^3)*/
-#include <bits/stdc++.h>
-using namespace std;
-const int N = 505;
 int n, m, ans;
 vector <int> e[N];
 int tim, pre[N], mate[N];
