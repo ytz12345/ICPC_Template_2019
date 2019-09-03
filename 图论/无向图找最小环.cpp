@@ -1,11 +1,5 @@
-#include <cstdio>
-#include <algorithm>
-using namespace std;
-#define rep(i, j, k) for(int i=j;i<=k;i++)
-const int N = 321;
-const int inf = 5e8;
-int a[N][N], d[N][N], pos[N][N];
-int n, m, path[N];
+/*a存所有初始边,d[i][j]存i-j经过的所有中间点<k时的最短路径,pos存对应中间点*/
+int a[N][N], d[N][N], pos[N][N], path[N];//O(N^3)
 void getpath(int x,int y){
      if(pos[x][y]==-1) return ;
      getpath(x,pos[x][y]);
@@ -13,16 +7,8 @@ void getpath(int x,int y){
      getpath(pos[x][y],y);
 }
 int main(){
-    int u, v, w, ans = inf;
-    scanf("%d %d", &n, &m);
-    rep(i, 1, n) rep(j, 1, n) {
-        a[i][j] = d[i][j] = inf;
-        pos[i][j] = -1;
-    }
-    rep(i, 1, m) {
-        scanf("%d %d %d", &u, &v, &w);
-        d[u][v] = d[v][u] = a[u][v] = a[v][u] = min(a[u][v], w);
-    }
+    int ans = inf;//最短路径长度
+    /*初始化a,d正无穷,pos为-1,然后读入所有边，邻接矩阵村边*/
     rep(k, 1, n) {
         rep(i, 1, k - 1) rep(j, i + 1, k - 1) 
             if (ans > d[i][j] + a[i][k] + a[k][j]) {
@@ -38,9 +24,4 @@ int main(){
                 pos[i][j] = k;
             }
     }
-    if(ans == inf) puts("No solution.");
-    else {
-        for (int i=1;i<=path[0];i++) printf("%d%c",path[i], i==path[0]?'\n':' ');
-    }
-return 0;
 }
