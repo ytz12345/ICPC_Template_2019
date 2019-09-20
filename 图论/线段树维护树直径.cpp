@@ -1,6 +1,5 @@
 /*LCA用ST表，总复杂度O(nlog)*/
-/*每次询问删去两条边后，剩下3棵树的最大直径长度*/
-const int N = 2e5 + 5;
+/*边带权的树每次询问删去两条边后，剩下3棵树的最大直径长度*/
 int T, n, m;
 int len, head[N], ST[20][N];
 struct edge{int u, v, w;}ee[N];
@@ -78,7 +77,6 @@ void ask(int s, int t) {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
     int u, v, w, ans; log_2[1] = 0;
     for (int i = 2; i <= 200000; i ++) 
         if (i == 1 << (log_2[i - 1] + 1))

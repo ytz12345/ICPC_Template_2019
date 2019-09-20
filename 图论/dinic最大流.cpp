@@ -1,5 +1,7 @@
-const int N = 20000;
-const int M = 500000;
+/*理论复杂度O(mn^2)，但其实蛮松的
+ *二分图最大匹配的复杂度是O(m*sqrt(n))
+ *如果边权都是1，那么是O(min(n^2/3, m^1/2)*m)
+ */
 const int inf = 0x3f3f3f3f;
 int n, m;
 int s, t, len = 1;

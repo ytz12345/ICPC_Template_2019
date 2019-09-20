@@ -1,43 +1,46 @@
-const int N = 600, M = 800000, inf = 0x3f3f3f3f;
+const int inf = 0x3f3f3f3f;
 int s, t, ans, len, maxflow;
-int T, n, m, K, W;
-int head[N], incf[N], path[N], pre[N], vis[N], d[N];
+int g[N], head[N], incf[N], path[N], pre[N], vis[N], d[N];
 struct edge{int to, next, cap, cost;}e[M];
-struct video {int s, t, w, op; }a[N];
 void add(int u, int v, int w, int c) {
-	e[++ len] = (edge){v, head[u], w, c}, head[u] = len;
-	e[++ len] = (edge){u, head[v], 0, -c}, head[v] = len;
+    e[++ len] = (edge){v, head[u], w, c}, head[u] = len;
+    e[++ len] = (edge){u, head[v], 0, -c}, head[v] = len;
 }
-bool spfa() {
-	deque <int> q;
-	q.push_back(s), incf[s] = inf;
-	for (int i = 1; i <= t; i ++) d[i] = inf;
-	d[s] = 0;
-	while (!q.empty()) {
-		int x = q.front();
-		q.pop_front(), vis[x] = 0;
-		for (int i = head[x]; i; i = e[i].next) {
-			if (e[i].cap && d[e[i].to] > d[x] + e[i].cost) {
-				d[e[i].to] = d[x] + e[i].cost;
-				pre[e[i].to] = x, path[e[i].to] = i;
-				incf[e[i].to] = min(incf[x], e[i].cap);
-				if (!vis[e[i].to]) {
-					vis[e[i].to] = 1;
-					if (q.empty() || d[e[i].to] < d[q.front()]) q.push_front(e[i].to);
-					else q.push_back(e[i].to);
-				}
-			}
-		}
-	}
-	maxflow += incf[t];
-	if (d[t] == inf) return 0;
-	for (int i = t; i != s; i = pre[i]) {
-		e[path[i]].cap -= incf[t];
-		e[path[i] ^ 1].cap += incf[t];
-	}
-	return ans += incf[t] * d[t], 1;
+bool bfs() {
+    static int u, v, w;
+    static deque<int> q; 
+    memset (d, 0x3f, sizeof d);
+    d[s] = 0, q.push_back(s);
+    while (!q.empty()) {
+        vis[u = q.front()] = 0; q.pop_front();
+        for (int i = head[u]; i; i = e[i].next) {
+            if (e[i].cap && d[v = e[i].to] > (w = d[u] + e[i].cost)) {
+                d[v] = w;
+                if (!vis[v]) {
+                    vis[v] = 1;
+                    d[v] < (q.empty() ? 0 : d[q.front()]) ? q.push_front(v) : q.push_back(v);
+                }
+            }
+        }
+    }
+    return d[t] < inf;
 }
-int main() {
-	/*build graph*/
-	while(spfa());
+int dfs(int x, int y) {
+    if (x == t) return y;
+    int v, f, flow = 0; vis[x] = 1;
+    for (int &i = g[x]; i; i = e[i].next) {
+        v = e[i].to;
+        if (vis[v] || !e[i].cap || d[x] + e[i].cost != d[v]) continue;
+        f = dfs(v, min(y, e[i].cap));
+        if (f) ans += f * e[i].cost, e[i].cap -= f, e[i ^ 1].cap += f, flow += f, y -= f;
+        if (!y) break;
+    } 
+    return vis[x] = 0, flow;
+}
+void costflow() {
+    maxflow = 0; static int res = 0; 
+    while (bfs()) {
+        memcpy(g, head, sizeof head);
+        while ((res = dfs(s, inf)) != 0) maxflow += res;
+    }
 }
