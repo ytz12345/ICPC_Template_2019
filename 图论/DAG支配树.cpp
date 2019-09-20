@@ -26,25 +26,25 @@ void topo(){
             fa[i][0] = rt;
             dep[i] = 1;
         }
-       while (l <= r) {
-           int u = q[l ++];
-           for (int v : e[u]) {
-               du[v] --;
-               if (du[v] == 0) {
-                   int las = -1;
-                   for (int w : f[v]) {
-                       if (las == -1) las = w;
-                       else las = lca(las, w);
-                   }
-                   E[las].push_back(v);
-                   fa[v][0] = las;
-                   dep[v] = dep[las] + 1;
-                   for (int j = 1; j <= 18; j ++) 
-                       fa[v][j] = fa[fa[v][j - 1]][j - 1];
-                   q[++ r] = v;
-               }
-           }
-       }
+     while (l <= r) {
+         int u = q[l ++];
+         for (int v : e[u]) {
+             du[v] --;
+             if (du[v] == 0) {
+                 int las = -1;
+                 for (int w : f[v]) {
+                     if (las == -1) las = w;
+                     else las = lca(las, w);
+                 }
+                 E[las].push_back(v);
+                 fa[v][0] = las;
+                 dep[v] = dep[las] + 1;
+                 for (int j = 1; j <= 18; j ++) 
+                     fa[v][j] = fa[fa[v][j - 1]][j - 1];
+                 q[++ r] = v;
+             }
+         }
+     }
 }
 int main() {
     int cas, q;
