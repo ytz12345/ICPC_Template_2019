@@ -1,5 +1,4 @@
-/*
- *调整重构系数可以影响常数
+/*调整重构系数可以影响常数
  *询问多就让系数接近0.70-0.75，询问少就让系数在0.8-0.90
  */
 const int inf = 1e9;
@@ -21,18 +20,8 @@ node *root = &Null;
 inline void node::update() {
     siz = c[0] -> siz + c[1] -> siz + 1;
     sum = c[0] -> sum + c[1] -> sum + val;
-    if (c[0] != &Null) {
-        if (c[0] -> Max[0] > Max[0]) Max[0] = c[0] -> Max[0];
-        if (c[0] -> Max[1] > Max[1]) Max[1] = c[0] -> Max[1];
-        if (c[0] -> Min[0] < Min[0]) Min[0] = c[0] -> Min[0];
-        if (c[0] -> Min[1] < Min[1]) Min[1] = c[0] -> Min[1];
-    }
-    if (c[1] != &Null) {
-        if (c[1] -> Max[0] > Max[0]) Max[0] = c[1] -> Max[0];
-        if (c[1] -> Max[1] > Max[1]) Max[1] = c[1] -> Max[1];
-        if (c[1] -> Min[0] < Min[0]) Min[0] = c[1] -> Min[0];
-        if (c[1] -> Min[1] < Min[1]) Min[1] = c[1] -> Min[1];
-    }
+    if (c[0] != &Null) ...
+    if (c[1] != &Null) ...
 }
 inline bool cmp(const node *a, const node *b) {
     return a -> d[nowD] < b -> d[nowD];
@@ -59,9 +48,7 @@ inline node *build(int l, int r, int D) {
 int x, y, a, b, tmpD;
 node **tmp;
 inline void rebuild(node *&o, int D) {
-    tot = 0;
-    traverse(o);
-    o = build(1, tot, D);
+    tot = 0, traverse(o), o = build(1, tot, D);
 }
 inline void insert(node *&o, node *p, int D) {
     if (o == &Null) {o = p; return;}
@@ -73,7 +60,7 @@ inline void insert(node *&o, node *p, int D) {
     insert(o -> c[p -> c[D] >= o -> c[D]], p, !D);
     if (max(o -> c[0] -> siz, o -> c[1] -> siz) > int(o -> siz * 0.75 + 0.5)) tmpD = D, tmp = &o;
 }
-inline int query(node *o) {
+inline int query(node *o) {//查询区间为[x,a]*[y,b]的权值和
     if (o == &Null) return 0;
     if (x > o -> Max[0] || y > o -> Max[1] || a < o -> Min[0] || b < o -> Min[1]) return 0;
     if (x <= o -> Min[0] && y <= o -> Min[1] && a >= o -> Max[0] && b >= o -> Max[1]) return o -> sum;
@@ -81,29 +68,16 @@ inline int query(node *o) {
         + query(o -> c[1]) + query(o -> c[0]);
 }
 int main() {
-    ios::sync_with_stdio(false);
-    cin >> m;
     node *ttt = &Null;
-    for (int t, ans = 0; ; ) {
-        cin >> t;
-        if (t == 3) break;
-        if (t == 1) {
-            cin >> x >> y >> a;
-            x ^= ans, y ^= ans, n ++;
-            nodes[n].sum = nodes[n].val = a ^ ans, nodes[n].siz = 1;
+    /*对每个操作*/ {
+        /*在(x,y)的位置增加权值为a的点*/ {
+            n ++, nodes[n].sum = nodes[n].val = a, nodes[n].siz = 1;
             nodes[n].Max[0] = nodes[n].Min[0] = nodes[n].d[0] = x;
             nodes[n].Max[1] = nodes[n].Min[1] = nodes[n].d[1] = y;
             nodes[n].c[0] = nodes[n].c[1] = &Null;
             tmp = &(ttt), insert(root, &nodes[n], 0);
             if (*tmp != &Null) rebuild(*tmp, tmpD); 
-        } else {
-            cin >> x >> y >> a >> b;
-            x ^= ans, y ^= ans, a ^= ans, b ^= ans;
-            if (x > a) swap(x, a);
-            if (y > b) swap(y, b);
-            ans = query(root);
-            printf("%d\n", ans);
-        }
+        }   
+        /*查询*/ {x, a, y, b = ....; query(root);}
     }
-    return 0;
 }

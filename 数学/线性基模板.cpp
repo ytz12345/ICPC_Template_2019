@@ -10,7 +10,7 @@ struct Base {
 	void ins(ll x) {
 		for (int i = B - 1; ~i; i --)
 			if (x >> i & 1)
-				if (a[i]) /*可以交换的*/x ^= a[i];
+				if (a[i]) /*x和a[i]可以交换再做后面异或*/x ^= a[i];
 				else {a[i] = x; break;}
 	}
 	void init() {//化成上三角,插入结束后就要执行
@@ -46,7 +46,7 @@ struct Base {
 	}
 	Base intersection(const Base &b) {//求交
 		Base na(*this), tmp(*this), res;
-	    int cur, d;
+	    ll cur, d;
 	    for (int i = 0; i < B; i ++) if (b.a[i]) {
     		cur = 0, d = b.a[i];
     		for (int j = i; ~j; j --) if (d >> j & 1) {

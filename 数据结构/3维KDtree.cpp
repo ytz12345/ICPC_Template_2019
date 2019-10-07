@@ -1,7 +1,5 @@
-/*O(n*n^(1-1/k)),k为维度*/
-const int N = 1e5 + 5;
-const int Mod = 1e9 + 7;
-int nowD, ans, x[3], y[3];
+/*O(n^(2-1/k)),k为维度,查询区间最大值*/
+int nowD, ans, x[3], y[3];//x,y数组存放查询区间各维度的min和max
 int n, m, a[N], b[N], c[N], d[N];
 struct node {
     int Max[3], Min[3], d[3];
@@ -64,36 +62,10 @@ inline void query(node *o) {
     }
 }
 int main() {
-    ios::sync_with_stdio(false);
-    cin >> n >> m;
-    for (int i = 1; i <= n; i ++) {
-        cin >> a[i];
-        b[i] = d[a[i]];
-        d[a[i]] = i;
-    }
-    for (int i = 1; i <= n; i ++) d[i] = n + 1;
-    for (int i = n; i; i --) {
-        c[i] = d[a[i]];
-        d[a[i]] = i;
-    }
-    for (int i = 1; i <= n; i ++) {
-        nodes[i].Min[0] = nodes[i].d[0] = b[i];
-        nodes[i].Max[1] = nodes[i].d[1] = c[i];
-        nodes[i].Max[2] = nodes[i].Min[2] = nodes[i].d[2] = i;
-        nodes[i].val = nodes[i].maxv = a[i];
-    }
+    /*初始化所有节点*/
     root = build(1, n);
-    for (int l, r; m --; ) {
-        cin >> l >> r;
-        l = (l + ans) % n + 1;
-        r = (r + ans) % n + 1;
-        if (l > r) swap(l, r);
-        y[0] = l - 1;
-        x[1] = r + 1;
-        x[2] = l, y[2] = r;
+    /*对每个查询*/ {
+        x[] = {}, y[] = {};
         ans = 0, query(root);
-        cout << ans << endl;
     }
-    cout << endl;
-    return 0;
 }

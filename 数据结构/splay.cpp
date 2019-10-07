@@ -1,4 +1,3 @@
-#define mid (l + r >> 1)
 int n, m, a, b, len, tot;
 struct node {
 	bool rev; //翻转标记

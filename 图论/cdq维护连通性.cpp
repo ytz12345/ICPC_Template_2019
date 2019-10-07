@@ -7,7 +7,7 @@
  */
 namespace UnionFindSet {
 	int f[N], rk[N];
-	int top, sta[N * 2];
+	int top, sta[N * 2];//n个点最多n-1个有效连接，所以n*2足够了
 	int fa(int x) {
 		while (x != f[x]) x = f[x];
 		return x;
@@ -48,6 +48,6 @@ void solve (int head, int tail, const vector <node> &e) {
 		ans += a[tail] - a[head - 1];//把时间区间做了离散化，使用原来值求和
 		undo(last); return;
 	}
-	if (head == tail) {undo(last);return;}
+	if (head == tail) {undo(last);return;}//叶节点也要处理修改操作，以及记得撤销操作
 	solve(head, mid, l), solve(mid + 1, tail, r); undo(last);
 }

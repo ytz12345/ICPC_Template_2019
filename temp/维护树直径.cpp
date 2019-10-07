@@ -225,6 +225,7 @@ LL calcpoint(int x,int y)
     return askx(1,1,total,st[x])+askx(1,1,total,st[y])
             -2LL*askx(1,1,total,st[u]);
 }
+
  
 char s[3];
  
@@ -242,8 +243,12 @@ void solve()
     dep[1]=1;
     dep[0]=0;
     dfs(1,0,0);
+   // rep(i,1,total) printf("%d ",p[i]);puts("");
     prermq();
     build(1,1,total);
+   // pput(1,1,total);
+    //rep(i,0,2) printf("%d ",tree[1].lp[i]);puts("");
+    //rep(i,0,2) printf("%d ",tree[1].rp[i]);puts("");
     int i;
     scanf("%d",&m);
     while(m--) {

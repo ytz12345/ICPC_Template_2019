@@ -1,6 +1,9 @@
-/*最小矩形覆盖,保留六位小数,逆时针输出四个顶点坐标*/
+/*最小(面积)矩形覆盖,保留六位小数,逆时针输出四个顶点坐标
+ *最小周长矩形的做法是相同的
+ *单纯用旋转卡壳找凸包上距离最远两个点的话
+ *可以找距离某条边最远的点，然后用两个端点到这个点的距离更新答案即可
+ */
 namespace minRectCover {
-	const int N = 1e5 + 5;
 	const double eps = 1e-8;
 	struct point{
 		double x, y;
@@ -14,22 +17,20 @@ namespace minRectCover {
 			return point(x + a.x, y + a.y);}
 		point operator / (const double &a) const {
 			return point(x / a, y / a);}
-
 		point operator * (const double &a) const {
 			return point(x * a, y * a);}
 		double operator / (const point &a) const { // .
 			return x * a.x + y * a.y;}
 		double operator * (const point &a) const { // X
 			return x * a.y - y * a.x;}
-
 	}p[N], q[N], rc[4];
 	double sqr(double x) {return x * x;}
 	double abs(point a) {return sqrt(a / a);}
 	int sgn(double x) {return fabs(x) < eps ? 0 : (x < 0 ? -1 : 1);}
 	point vertical(point a, point b) {//与ab向量垂直的向量
-		return point(a.x + a.y - b.y, a.y - a.x + b.x) - a;}
+		return point(a.y - b.y, -a.x + b.x);}
 	point vec(point a){return a / abs(a);}
-	void convexhull(int n, point *hull, int &top) {//如果要计算周长需要特判 n==2
+	void convexhull(int n, point *hull, int &top) {//top得到凸包上总点数
 		for (int i = 1; i < n; i ++)
 			if (p[i] < p[0])
 				swap(p[i], p[0]);
@@ -50,7 +51,7 @@ namespace minRectCover {
 			hull[++ top] = p[i];
 		}
 		hull[0] = hull[top];
-	}
+	}//如果要计算周长需要特判 n==2
 	void main() {
 		int n;
 		scanf("%d", &n);

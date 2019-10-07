@@ -10,6 +10,7 @@
 语言特性:
 vecor的unique一定要跟上resize，即 v.resize(unique(v.begin(),v.end())-v.begin())
 小心memcpy，最好写成sizeof(type)*length的写法，毕竟指针的sizeof并不可信
+lambda表达式里的数据类型要和实际数据类型保持一致，比如不要ll写成int
 浮点型请不要cout，小心输出科学计数法
 
 分块的块大小:
@@ -24,3 +25,7 @@ splay如果没有翻转操作，基本都可以用线段树代替
 树链剖分+线段树，请注意树上点和线段树上点的映射，pos和dfn
 
 矩阵乘法满足分配律和结合律，但不满足交换律
+
+用map来存无向边，一定要先处理令u<v，否则存了边pair(u,v)查pair(v,u)会查不到
+
+单调队列是 while ! while !!!

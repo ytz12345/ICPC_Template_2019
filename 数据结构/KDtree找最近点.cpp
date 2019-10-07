@@ -1,15 +1,12 @@
-/*
- *为了维持树的平衡，可以一开始把所有点都读进来build
- *然后打flag标记该点是否被激活
+/*为了维持树的平衡，可以一开始把所有点都读进来build
+ *然后打flag标记该点是否被激活,所有点均参与建树时的更新
+ *需要再额外维护siz，记录子树下已经被激活的节点总个数
  */
-const int N = 5e5 + 5;
 const int inf = 1 << 30;
-int n, m;
-int ql, qr, ans, tot, nowD;
-//nowD = rand() & 1 ?
-struct Node {
+int n, m, ql, qr, ans, tot, nowD;
+struct point {
     int d[2];
-    bool operator < (const Node &a) const {
+    bool operator < (const point &a) const {
         if (d[nowD] == a.d[nowD]) return d[!nowD] < a.d[!nowD];
         return d[nowD] < a.d[nowD];
     }
@@ -31,22 +28,11 @@ node::node(int x, int y) {
     c[0] = c[1] = &Null;
 }
 inline void node::update() {
-    if (c[0] != &Null) {
-        if (c[0] -> max[0] > max[0]) max[0] = c[0] -> max[0];
-        if (c[0] -> max[1] > max[1]) max[1] = c[0] -> max[1];
-        if (c[0] -> min[0] < min[0]) min[0] = c[0] -> min[0];
-        if (c[0] -> min[1] < min[1]) min[1] = c[0] -> min[1];
-    }
-    if (c[1] != &Null) {
-        if (c[1] -> max[0] > max[0]) max[0] = c[1] -> max[0];
-        if (c[1] -> max[1] > max[1]) max[1] = c[1] -> max[1];
-        if (c[1] -> min[0] < min[0]) min[0] = c[1] -> min[0];
-        if (c[1] -> min[1] < min[1]) min[1] = c[1] -> min[1];
-    }
+    if (c[0] != &Null) ...
+    if (c[1] != &Null) ...
 }
 inline void build(node *&o, int l, int r, int D) {
-    int mid = l + r >> 1;
-    nowD = D;
+    int mid = l + r >> 1; nowD = D;
     nth_element(pot + l, pot + mid, pot + r + 1);
     o = new node(pot[mid].d[0], pot[mid].d[1]);
     if (l != mid) build(o -> c[0], l, mid - 1, !D);
@@ -54,8 +40,7 @@ inline void build(node *&o, int l, int r, int D) {
     o -> update();
 }
 inline void insert(node *o) {
-    node *p = root;
-    int D = 0;
+    node *p = root; int D = 0;
     while (1) {
         if (o -> max[0] > p -> max[0]) p -> max[0] = o -> max[0];
         if (o -> max[1] > p -> max[1]) p -> max[1] = o -> max[1];
@@ -63,13 +48,11 @@ inline void insert(node *o) {
         if (o -> min[1] < p -> min[1]) p -> min[1] = o -> min[1];
         if (o -> d[D] >= p -> d[D]) {
             if (p -> c[1] == &Null) {
-                p -> c[1] = o;
-                return;
+                p -> c[1] = o; return;
             } else p = p -> c[1];
         } else {
             if (p -> c[0] == &Null) {
-                p -> c[0] = o;
-                return;
+                p -> c[0] = o; return;
             } else p = p -> c[0];
         }
         D ^= 1;
@@ -87,10 +70,8 @@ inline void query(node *o) {
     int dl, dr, d0;
     d0 = abs(o -> d[0] - ql) + abs(o -> d[1] - qr);
     if (d0 < ans) ans = d0;
-    if (o -> c[0] != &Null) dl = dist(o -> c[0]);
-    else dl = inf;
-    if (o -> c[1] != &Null) dr = dist(o -> c[1]);
-    else dr = inf;
+    dl = (o -> c[0] != &Null) ? dist(o -> c[0]) : inf;
+    dr = (o -> c[1] != &Null) ? dist(o -> c[1]) : inf;
     if (dl < dr) {
         if (dl < ans) query(o -> c[0]);
         if (dr < ans) query(o -> c[1]);
@@ -105,7 +86,6 @@ int main() {
     for (int i = 1; i <= n; i ++)
         cin >> pot[i].d[0] >> pot[i].d[1];
     build(root, 1, n, 0);
-    
     for (int x, y, z; m --; ) {
         cin >> x >> y >> z;
         if (x == 1) {

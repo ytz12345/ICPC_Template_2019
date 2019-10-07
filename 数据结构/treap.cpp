@@ -1,9 +1,8 @@
-/*
-容易实现的预开内存池treap，每次head清空即可
-如果初始要插入n个1，可改为类似splay的O(n)build写法
-poolSize是单组数据的最大节点数，对于单组数据有很多插入和删除
-导致使用的节点很多的数据，无法使用
-*/
+/*容易实现的预开内存池treap，每次head清空即可
+ *如果初始要插入n个1，可改为类似splay的O(n)build写法
+ *poolSize是单组数据的最大节点数，对于单组数据有很多插入和删除
+ *导致使用的节点很多的数据，无法使用
+ */
 const int poolSize = 5e5 + 10;
 struct node {
 	node *c[2];
@@ -20,7 +19,7 @@ void node::init(int x) {
 	c[0] = c[1] = null;
 }
 node nodesPool[poolSize];
-int head;//每次head=0清空
+int head;//每次head=0要清空!
 node *newnode(int x) {
 	node *res = &nodesPool[head ++];
 	res -> init(x);
