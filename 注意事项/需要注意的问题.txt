@@ -11,6 +11,8 @@
 vecor的unique一定要跟上resize，即 v.resize(unique(v.begin(),v.end())-v.begin())
 小心memcpy，最好写成sizeof(type)*length的写法，毕竟指针的sizeof并不可信
 lambda表达式里的数据类型要和实际数据类型保持一致，比如不要ll写成int
+手动or用unique对vector重排列后请立即resize，否则容易引起错误
+输出浮点数，需要判断如果fabs小于eps则置0，避免输出-0.00
 浮点型请不要cout，小心输出科学计数法
 
 分块的块大小:
