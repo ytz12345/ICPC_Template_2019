@@ -3,10 +3,10 @@
 bool f[N][N];//i是否可达j
 vector <int> e[N];
 int main() {
-	rep(i, 1, n)
-		for (int j : e[i]) {
-			rep (k, 1, n)
-				if (i != k && j != k && f[i][k] && f[k][j])
-					no_use_edge;
-		}
+    rep(i, 1, n)
+        for (int j : e[i]) {
+            rep (k, 1, n)
+                if (i != k && j != k && f[i][k] && f[k][j])
+                    no_use_edge;
+        }
 }

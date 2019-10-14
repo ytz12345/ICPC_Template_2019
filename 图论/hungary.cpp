@@ -6,25 +6,25 @@ int n1, n2, m;
 vector <int> e[N];
 int vis[N], pre[N], ans, tim;
 bool dfs(int u) {
-	if (vis[u] == tim) return 0;
-	vis[u] = tim;
-	for (int v : e[u]) 
-		if (!pre[v] || dfs(pre[v])) 
-			return pre[v] = u, 1;
-	return 0;
+    if (vis[u] == tim) return 0;
+    vis[u] = tim;
+    for (int v : e[u]) 
+        if (!pre[v] || dfs(pre[v])) 
+            return pre[v] = u, 1;
+    return 0;
 }
 int main() {
-	scanf("%d %d %d", &n1, &n2, &m);
-	for (int u, v, i = 1; i <= m; i ++) {
-		scanf("%d %d", &u, &v);
-		e[v].push_back(u);
-		// 要输出左侧点连接的右侧点，连边时就由右边点向左边连边
-		// 连边(u->v)，输出的pre[v]就是右边的点了
-	}
-	for (tim = 1; tim <= n2; tim ++) 
-		if (dfs(tim)) ans ++;
-	printf("%d\n", ans);
-	for (int i = 1; i <= n1; i ++)
-		printf("%d%c", pre[i], i == n1 ? '\n' : ' ');
-	return 0;
+    scanf("%d %d %d", &n1, &n2, &m);
+    for (int u, v, i = 1; i <= m; i ++) {
+        scanf("%d %d", &u, &v);
+        e[v].push_back(u);
+        // 要输出左侧点连接的右侧点，连边时就由右边点向左边连边
+        // 连边(u->v)，输出的pre[v]就是右边的点了
+    }
+    for (tim = 1; tim <= n2; tim ++) 
+        if (dfs(tim)) ans ++;
+    printf("%d\n", ans);
+    for (int i = 1; i <= n1; i ++)
+        printf("%d%c", pre[i], i == n1 ? '\n' : ' ');
+    return 0;
 }

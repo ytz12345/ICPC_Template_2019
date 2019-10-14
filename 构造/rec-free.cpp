@@ -2,7 +2,7 @@
 const int N = 200, n = 150, M = 13;//M为质数, N>M*M>n
 int a[N][N], b[N][N], c[N][N];
 void make() {
-	for (int i = 1; i <= M; i ++)
+    for (int i = 1; i <= M; i ++)
         for (int j = 1; j <= M; j ++)
             a[i][j + 1] = M * (j - 1) + i;
     for (int i = 1; i <= M; i ++)

@@ -6,15 +6,15 @@
  *其中快速幂的log可以通过log(p)*sqrt(p)的预处理做成O(1)的
  */
 ll exEuler(ll x, ll t) {
-	if (x >= phi[t]) x = x % phi[t] + phi[t];
-	for (int i = t; i > 0; i --) {
-		x = qpow(c, x, phi[i - 1]);
-		if (__gcd(c, x) != 1) x += phi[i - 1];
-	}
-	return x % phi[0];
+    if (x >= phi[t]) x = x % phi[t] + phi[t];
+    for (int i = t; i > 0; i --) {
+        x = qpow(c, x, phi[i - 1]);
+        if (__gcd(c, x) != 1) x += phi[i - 1];
+    }
+    return x % phi[0];
 }
 int main() {
-	for (phi[tot = 0] = p; phi[tot] != 1; )
-		phi[tot + 1] = calcPhi(phi[tot]), tot ++;
-	phi[++ tot] = 1;
+    for (phi[tot = 0] = p; phi[tot] != 1; )
+        phi[tot + 1] = calcPhi(phi[tot]), tot ++;
+    phi[++ tot] = 1;
 }

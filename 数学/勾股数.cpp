@@ -10,21 +10,21 @@
  *  可以默认为O(sqrt(n)*k),k介于[1,logn),期望情况下大概是个不大于10的常数
  */
 void calc(ll a, ll k, vector<pr> &v) {
-	for (ll i = 0, j = int(sqrt(a)) + 5; i * i <= a; i ++) {
-		while (i * i + j * j > a) j --;
-		if (i * i + j * j == a && check(i * j * 2, abs(j * j - i * i), a)) {
-			v.push_back(pr(i * j * 2 * k, abs(j * j - i * i) * k));
-			v.push_back(pr(abs(j * j - i * i) * k, i * j * 2 * k));
-		}
-	}
+    for (ll i = 0, j = int(sqrt(a)) + 5; i * i <= a; i ++) {
+        while (i * i + j * j > a) j --;
+        if (i * i + j * j == a && check(i * j * 2, abs(j * j - i * i), a)) {
+            v.push_back(pr(i * j * 2 * k, abs(j * j - i * i) * k));
+            v.push_back(pr(abs(j * j - i * i) * k, i * j * 2 * k));
+        }
+    }
 }
 void calc(ll a, vector<pr> &v) {//计算所有有序对(x,y)使得x^2+y^2=a^2
-	v.clear();
-	for (ll k = 1; k * k <= a; k ++)
-		if (a % k == 0) {
-			calc(a / k, k, v);
-			calc(k, a / k, v);
-		}
-	v.push_back(pr(a, 0)), v.push_back(pr(0, a));
-	sort(v.begin(), v.end()); v.resize(unique(v.begin(), v.end()) - v.begin());
+    v.clear();
+    for (ll k = 1; k * k <= a; k ++)
+        if (a % k == 0) {
+            calc(a / k, k, v);
+            calc(k, a / k, v);
+        }
+    v.push_back(pr(a, 0)), v.push_back(pr(0, a));
+    sort(v.begin(), v.end()); v.resize(unique(v.begin(), v.end()) - v.begin());
 }

@@ -11,32 +11,32 @@ map <ll, int> p;
 ll n, k, a[N], b[N], c[N];
 ll sum, val[N], fac[N], cnt[N];
 void dfs(int i, ll x, int id){
-	p[x] = id, val[id] = x;
+    p[x] = id, val[id] = x;
     if (i > b[0]) return;
     for (int j = 0; j < c[i] + 1; j ++) {
-    	dfs(i + 1, x, id);
-    	x *= b[i], id += fac[i];
+        dfs(i + 1, x, id);
+        x *= b[i], id += fac[i];
     }
 }
 ll solve(ll x) {
-	PollardRho::getFac(x, b);
-	sort (b + 1, b + b[0] + 1);
-	b[0] = unique(b + 1, b + b[0] + 1) - b - 1;
-	for (ll y = x, i = 1; i <= b[0]; i ++) {
-		c[i] = 0; 
-		while (y % b[i] == 0) c[i] ++, y /= b[i];
-	}
-	sum = 1;
-	for (int i = b[0]; i > 0; i --)
-		fac[i] = sum, sum *= c[i] + 1;
-	p.clear(), dfs(1, 1, 0);
-	for (int i = 0; i < sum; i ++) cnt[i] = 0;
-	for (int i = 1; i <= n; i ++) cnt[p[__gcd(x, a[i])]] ++;
-	for (int i = 1; i <= b[0]; i ++)
-		for (int j = sum - 1; j >= 0; j --)
-			if (j / fac[i] % (c[i] + 1) != c[i])
-				cnt[j] += cnt[j + fac[i]];
-	ll res = 0;
-	for (int i = 0; i < sum; i ++) if (cnt[i] >= n - k) res = max(res, val[i]);
-	return res;
+    PollardRho::getFac(x, b);
+    sort (b + 1, b + b[0] + 1);
+    b[0] = unique(b + 1, b + b[0] + 1) - b - 1;
+    for (ll y = x, i = 1; i <= b[0]; i ++) {
+        c[i] = 0; 
+        while (y % b[i] == 0) c[i] ++, y /= b[i];
+    }
+    sum = 1;
+    for (int i = b[0]; i > 0; i --)
+        fac[i] = sum, sum *= c[i] + 1;
+    p.clear(), dfs(1, 1, 0);
+    for (int i = 0; i < sum; i ++) cnt[i] = 0;
+    for (int i = 1; i <= n; i ++) cnt[p[__gcd(x, a[i])]] ++;
+    for (int i = 1; i <= b[0]; i ++)
+        for (int j = sum - 1; j >= 0; j --)
+            if (j / fac[i] % (c[i] + 1) != c[i])
+                cnt[j] += cnt[j + fac[i]];
+    ll res = 0;
+    for (int i = 0; i < sum; i ++) if (cnt[i] >= n - k) res = max(res, val[i]);
+    return res;
 }
