@@ -1,4 +1,6 @@
-/*时间复杂度O(n^3)*/
+/*n个人m个可行的配对关系，每个人最多属于一对，最多配多少对
+ *带花树,时间复杂度O(n^3)
+ */
 int n, m, ans;
 vector <int> e[N];
 int tim, pre[N], mate[N];

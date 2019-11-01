@@ -1,3 +1,4 @@
+/*结合了spfa和zkw两种费用流的优点，在各种图上都比较好用*/
 const int inf = 0x3f3f3f3f;
 int s, t, ans, len, maxflow;
 int g[N], head[N], incf[N], path[N], pre[N], vis[N], d[N];

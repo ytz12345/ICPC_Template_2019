@@ -35,7 +35,7 @@ int dfs(int x, int y) {
     } 
     return flow;
 }
-int  dinic() {
+int dinic() {
     int maxflow = 0;
     while (bfs()) {
         memcpy(p, g, sizeof g);

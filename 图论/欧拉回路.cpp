@@ -1,5 +1,4 @@
-#include<bits/stdc++.h>
-using namespace std;
+/*欧拉回路， t=1/2代表无向边/有向边*/
 const int N = 4e5 + 10;
 int n, m, t, in[N], out[N];
 int vis[N], ans[N], head[N], cnt, cc;
