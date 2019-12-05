@@ -6,3 +6,6 @@ latex/template.toc
 
 #for vscode
 .vscode
+
+#for mac
+*.DS_Store
