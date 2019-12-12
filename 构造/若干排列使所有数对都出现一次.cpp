@@ -1,5 +1,6 @@
-/*n/2个排列使得所有数对(i,j)且i<j都出现一次
- *n为奇数则首尾相连，偶数不连
+/*n/2个排列使得所有无序数对(i,j)都出现一次
+ *n为奇数则相邻行首尾相连(最后一行和第一行也相连)，偶数不连
+ * used in ICPC 2019 徐州站 J
  */
 typedef vector<int> vi;
 void get_even(int n, vi ans[]) {
