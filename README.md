@@ -1,15 +1,31 @@
 # ICPC Template of 2019
 
-### commit_script_for_linux.py 
+## 模板中被省略的常用声明
+ 
+#define lc (o << 1)    
+#define rc (o << 1 | 1)  
+#define lb(x) (x & (-x))   
+#define mid (l + r >> 1)  
+
+typedef long long ll      
+typedef pair<int, int> piir    
+typedef unsigned int uint    
+typedef unsigned long long ull   
+
+## 目录结构说明    
+
+### commit_script_for_linux.py
+
 提交修改并push到github的脚本  
 用法示例:python3 commit_script_for_linux comment  
 工作流程:  
 git pull  
 git add -A  
 git commit 'comment'  
-git push  
-
+git push    
+   
 ### del_space.py
+
 删除代码内多余空行的脚本
 
 ### 注意事项/ 
