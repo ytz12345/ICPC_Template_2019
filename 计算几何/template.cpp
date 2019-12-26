@@ -28,12 +28,14 @@ struct line:public vector<point> {
 	line(point a, point b) {push_back(a), push_back(b);}
 };
 double sqr(double x) {return x * x;}
-double abs(point a) {return sqrt(sqr(a.x) + sqr(a.y));}//向量长度
 point vec(point a){return a / abs(a);}//向量a对应的单位向量
 point vec(const line &a) {return a[1] - a[0];}//直线化为向量
 double det(point a, point b) {return a.x * b.y - a.y * b.x;}//叉积
 double dot(point a, point b) {return a.x * b.x + a.y * b.y;}//点积
-point vertical(point a, point b) {return point(a.y - b.y, -a.x + b.x);}//与ab向量垂直的向量
+double dot(point a) {return dot(a, a);}
+double abs(point a) {return sqrt(dot(a));}//向量长度
+point vertical(point a) {return point(a.y, -a.x);}//与向量a垂直的向量
+point vertical(point a, point b) {return vertical(a - b);}//与ab向量垂直的向量
 point rotate(point u, double a) {
     return point(u.x * cos(a) - u.y * sin(a), u.y * cos(a) + u.x * sin(a));
 }//坐标逆时针旋转a度
@@ -134,7 +136,7 @@ bool isInConvexHull(point p, const convexHull &h) {//点是否在凸包内或凸
 		s -= abs(det(p - h.p[i + 1], p - h.p[i])) / 2;
 	return sgn(s) == 0;
 }//要求n>2,线段上就判断叉积为0且坐标在范围里面即可
-point getCC(point a, point b, point c) {//三点确定圆心,Center of Circle
+point getCC(point a, point b, point c) {//三点确定外接圆的圆心,Center of Circle
 	point l1 = (a + b) / 2, l2 = (a + c) / 2;
 	return interLL(line(l1, l1 + vertical(a, b)), line(l2, l2 + vertical(a, c)));
 }
@@ -159,3 +161,13 @@ struct circle {
 		r = sqrt(r);
 	}
 };
+void circleInter(const circle &u, const circle &v, vector<point> &vp) {
+    point d = u.c - v.c; double r1 = u.r, r2 = v.r; vp.clear();
+    if (sgn(r1 + r2 - abs(d)) >= 0 && sgn(abs(r1 - r2) - abs(d)) <= 0 && sgn(abs(d)) != 0) {
+        point mid = d / abs(d) * (dot(d) + r2 * r2 - r1 * r1) / (2 * r2 * abs(d)) * r2 + v.c;
+        point p = vec(vertical(d)) * sqrt(sqr(r1) - dot(u.c - mid)); 
+        vp.push_back(mid + p);
+        if (sgn(r1 + r2 - abs(d)) == 0 || sgn(abs(r1 - r2) - abs(d)) == 0) return;
+        vp.push_back(mid - p);
+    }
+}//求两个圆的交点，并且放到vp里。交点精度不高，大概也就1e-6。eps太小会导致判错。
